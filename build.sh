@@ -34,12 +34,7 @@ rm -v sphinxcontrib/__pycache__/inlinesyntaxhighlight.*
 python -m compileall sphinxcontrib
 popd
 
-# Build and run the binary.
-if [[ -n "$APPVEYOR" ]]; then
-  SP=';'
-else
-  SP=':'
-fi
+# Build the binary.
 python -OO -m PyInstaller \
   --noconfirm \
   --console \
@@ -47,6 +42,7 @@ python -OO -m PyInstaller \
   --additional-hooks-dir=hooks \
   run_sphinx.py
 
+# Rename the binary.
 OS_CLASSIFIER="$(./os_classifier.sh)"
 if [[ -f dist/run_sphinx ]]; then
   mv -v dist/run_sphinx "dist/sphinx.$OS_CLASSIFIER"
@@ -54,4 +50,5 @@ else
   mv -v dist/run_sphinx.exe "dist/sphinx.$OS_CLASSIFIER.exe"
 fi
 
+# Build a test site with the binary to make sure it really works.
 "dist/sphinx.$OS_CLASSIFIER" test_site build/test_site
