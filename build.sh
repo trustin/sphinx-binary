@@ -53,7 +53,9 @@ else
 fi
 
 # Generate the SHA256 checksum.
-sha256sum -b "$SPHINX_BIN" > "$SPHINX_BIN.sha256"
+sha256sum -b "$SPHINX_BIN" | sed 's/ .*//g' > "$SPHINX_BIN.sha256"
+echo -n 'SHA256 checksum: '
+cat "$SPHINX_BIN.sha256"
 
 # Build a test site with the binary to make sure it really works.
 "dist/sphinx.$OS_CLASSIFIER" test_site build/test_site
