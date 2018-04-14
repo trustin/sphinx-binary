@@ -45,10 +45,15 @@ python -OO -m PyInstaller \
 # Rename the binary.
 OS_CLASSIFIER="$(./os_classifier.sh)"
 if [[ -f dist/run_sphinx ]]; then
-  mv -v dist/run_sphinx "dist/sphinx.$OS_CLASSIFIER"
+  SPHINX_BIN="dist/sphinx.$OS_CLASSIFIER"
+  mv -v dist/run_sphinx "$SPHINX_BIN"
 else
-  mv -v dist/run_sphinx.exe "dist/sphinx.$OS_CLASSIFIER.exe"
+  SPHINX_BIN="dist/sphinx.$OS_CLASSIFIER.exe"
+  mv -v dist/run_sphinx.exe "$SPHINX_BIN"
 fi
+
+# Generate the SHA256 checksum.
+sha256sum -b "$SPHINX_BIN" > "$SPHINX_BIN.sha256"
 
 # Build a test site with the binary to make sure it really works.
 "dist/sphinx.$OS_CLASSIFIER" test_site build/test_site

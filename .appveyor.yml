@@ -16,13 +16,13 @@ test: off
 matrix:
   fast_finish: true
 artifacts:
-  - path: dist\sphinx.*.exe
+  - path: dist\sphinx.*.exe*
     name: Releases
 deploy:
   provider: GitHub
   auth_token:
     secure: "NFYPLE7fXMSzXHZGA9EEXaGwvgct/x4tnWYIPsvKOK0FmNvYeUT6wxf/pwy/NMc5"
-  artifact: /sphinx\..*\.exe/
+  artifact: /sphinx\..*\.exe.*/
   draft: false
   prerelease: false
   on:
