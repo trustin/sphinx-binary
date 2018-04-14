@@ -53,7 +53,12 @@ else
 fi
 
 # Generate the SHA256 checksum.
-sha256sum -b "$SPHINX_BIN" | sed 's/ .*//g' > "$SPHINX_BIN.sha256"
+if [[ -x /usr/local/bin/gsha256sum ]]; then
+  SHA256SUM_BIN=/usr/local/bin/gsha256sum
+else
+  SHA256SUM_BIN=sha256sum
+fi
+"$SHA256SUM_BIN" -b "$SPHINX_BIN" | sed 's/ .*//g' > "$SPHINX_BIN.sha256"
 echo -n 'SHA256 checksum: '
 cat "$SPHINX_BIN.sha256"
 
