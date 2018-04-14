@@ -1,0 +1,29 @@
+version: "{branch}.{build}"
+environment:
+  PATH: "C:\\msys64\\usr\\bin;%PATH%"
+  matrix:
+    - APPVEYOR_BITS: 32
+    - APPVEYOR_BITS: 64
+init:
+  - git config --global core.autocrlf true
+install:
+  - bash -e install_python3.sh
+build:
+  verbosity: detailed
+build_script:
+  - bash -e build.sh
+test: off
+matrix:
+  fast_finish: true
+artifacts:
+  - path: dist\sphinx.*.exe
+    name: Releases
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: "NFYPLE7fXMSzXHZGA9EEXaGwvgct/x4tnWYIPsvKOK0FmNvYeUT6wxf/pwy/NMc5"
+  artifact: /sphinx\..*\.exe/
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
