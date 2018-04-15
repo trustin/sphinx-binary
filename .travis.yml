@@ -10,14 +10,12 @@ script:
   - ./build.sh
 notifications:
   email: false
-before_deploy:
-  - export FILE_TO_UPLOAD=$(ls build/dist/sphinx.*-x86_*)
 deploy:
   provider: releases
   api_key:
     - secure: "bgcPpVScW3Pd5ShFWJqbVnCd3qf75zwPYi6sTBMnU9NvYsWjixtdITVnXaCACX/jBAbbmiWCXmwlVYxZ6kAQuu/jqBI+EVEQHBtt6HseskQeOEh8YepJGTkEXyPQdMFOcriuJQ4H38OQnp6MOs/uwXvSOXLqtOg8BwQXgOGadpr0KLhBdX5nJuFVTtCILWz2Qzt8znT0ItjeNqEjMA8rM/S2OC7IzWBdGyYU8z2FajjbHnaROzRBuD/RWo6ljnHyKLRmx8PW8fKbchXCgmMahI+hBmtMuk1LjikSdKbqeblScMEcRexAkj4zsJ5twC2lX302bukilvYj8IG9BuO2g7GmDSka0a3AuSPTraPb8ciYa+0v8QNkCJCu4cSkjIyFTr4K+J7vFlYeNcQH+Xe5XzMXvMCWO6LVEsJMxVJ+gUxXUDkiY8/oXZIk5RUVeEIgB73iJlbKRWgIDSFPpKRtBRHMw5J18c+OwbWoNYBXGpzRMn6KbxMNFI9eOjzbQy42drq6v2ySzJqNLF9CLFcqs8zoad3+dFE3BmRo55QAor0leFV1iPm0K0PBKRC095pI2QHEr9j5plF1WZb2Htl2YzuuO1C6lgRuCUcjmjZaKPQx+9f1R1ufQvl1n5X+klq4YTRxII6kML5fOkpoikUVN3BiinYvcZ++vue7fRoVlSU="
   file_glob: true
-  file: "${FILE_TO_UPLOAD}"
+  file: "build/dist/sphinx.*"
   skip_cleanup: true
   on:
     tags: true
