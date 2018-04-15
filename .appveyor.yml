@@ -16,7 +16,7 @@ test: off
 matrix:
   fast_finish: true
 artifacts:
-  - path: dist\sphinx.windows*
+  - path: build\dist\sphinx.windows*
     name: Releases
 deploy:
   provider: GitHub

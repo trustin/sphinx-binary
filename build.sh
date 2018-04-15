@@ -1,5 +1,9 @@
 #!/bin/bash -e
 export PATH="$PWD/build/venv/bin:$PWD/build/venv/Scripts:$PATH"
+if [[ ! -d "$PWD/build/venv" ]]; then
+  echo "virtualenv not ready"
+  exit 1
+fi
 
 # Install the core packages.
 pip install \
@@ -39,17 +43,19 @@ python -OO -m PyInstaller \
   --noconfirm \
   --console \
   --onefile \
+  --distpath build/dist \
+  --specpath build \
   --additional-hooks-dir=hooks \
   run_sphinx.py
 
 # Rename the binary.
 OS_CLASSIFIER="$(./os_classifier.sh)"
-if [[ -f dist/run_sphinx ]]; then
-  SPHINX_BIN="dist/sphinx.$OS_CLASSIFIER"
-  mv -v dist/run_sphinx "$SPHINX_BIN"
+if [[ -f build/dist/run_sphinx ]]; then
+  SPHINX_BIN="build/dist/sphinx.$OS_CLASSIFIER"
+  mv -v build/dist/run_sphinx "$SPHINX_BIN"
 else
-  SPHINX_BIN="dist/sphinx.$OS_CLASSIFIER.exe"
-  mv -v dist/run_sphinx.exe "$SPHINX_BIN"
+  SPHINX_BIN="build/dist/sphinx.$OS_CLASSIFIER.exe"
+  mv -v build/dist/run_sphinx.exe "$SPHINX_BIN"
 fi
 
 # Generate the SHA256 checksum.
@@ -63,4 +69,4 @@ echo -n 'SHA256 checksum: '
 cat "$SPHINX_BIN.sha256"
 
 # Build a test site with the binary to make sure it really works.
-"dist/sphinx.$OS_CLASSIFIER" test_site build/test_site
+"build/dist/sphinx.$OS_CLASSIFIER" test_site build/test_site
