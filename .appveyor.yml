@@ -7,7 +7,7 @@ environment:
 init:
   - git config --global core.autocrlf true
 install:
-  - bash -e install_python3.sh
+  - bash -e install.sh
 build:
   verbosity: detailed
 build_script:

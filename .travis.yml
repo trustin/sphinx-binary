@@ -5,7 +5,7 @@ os:
   - linux
   - osx
 install:
-  - ./install_python3.sh
+  - ./install.sh
 script:
   - ./build.sh
 notifications:
