@@ -1,0 +1,62 @@
+diff -urN -urN dist.orig/docutils/utils/math/tex2mathml_extern.py dist/utils/math/tex2mathml_extern.py
+--- dist.orig/docutils/utils/math/tex2mathml_extern.py	2018-04-15 20:26:58.622734086 +0900
++++ dist/docutils/utils/math/tex2mathml_extern.py	2018-04-15 20:35:16.822177739 +0900
+@@ -37,7 +37,8 @@
+                             stdin=subprocess.PIPE,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE,
+-                            close_fds=True)
++                            close_fds=True,
++                            env=_new_env())
+     p.stdin.write((document_template % math_code).encode('utf8'))
+     p.stdin.close()
+     latexml_code = p.stdout.read()
+@@ -55,7 +56,8 @@
+                               stdin=subprocess.PIPE,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE,
+-                              close_fds=True)
++                              close_fds=True,
++                              env=_new_env())
+     post_p.stdin.write(latexml_code)
+     post_p.stdin.close()
+     result = post_p.stdout.read().decode('utf8')
+@@ -83,7 +85,8 @@
+                          stdin=subprocess.PIPE,
+                          stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE,
+-                         close_fds=True)
++                         close_fds=True,
++                         env=_new_env())
+     p.stdin.write((document_template % math_code).encode('utf8'))
+     p.stdin.close()
+     result = p.stdout.read()
+@@ -121,7 +124,8 @@
+                          stdin=subprocess.PIPE,
+                          stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE,
+-                         close_fds=True)
++                         close_fds=True,
++                         env=_new_env())
+     p.stdin.write(math_code.encode('utf8'))
+     p.stdin.close()
+     result = p.stdout.read().decode('utf8')
+@@ -138,6 +142,18 @@
+               '%s</math>\n') % (mathmode_arg, result[start:end])
+     return result
+ 
++
++def _new_env():
++    env = dict(os.environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
++
+ # self-test
+ 
+ if __name__ == "__main__":

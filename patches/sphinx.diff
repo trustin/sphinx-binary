@@ -1,0 +1,139 @@
+diff -urN -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
+--- dist.orig/sphinx/ext/graphviz.py	2018-04-15 20:26:58.654734051 +0900
++++ dist/sphinx/ext/graphviz.py	2018-04-15 20:32:24.077373547 +0900
+@@ -237,7 +237,7 @@
+     if format == 'png':
+         dot_args.extend(['-Tcmapx', '-o%s.map' % outfn])
+     try:
+-        p = Popen(dot_args, stdout=PIPE, stdin=PIPE, stderr=PIPE)
++        p = Popen(dot_args, stdout=PIPE, stdin=PIPE, stderr=PIPE, env=_new_env())
+     except OSError as err:
+         if err.errno != ENOENT:   # No such file or directory
+             raise
+@@ -389,6 +389,17 @@
+     raise nodes.SkipNode
+ 
+ 
++def _new_env():
++    env = dict(os.environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
++
+ def setup(app):
+     # type: (Sphinx) -> Dict[unicode, Any]
+     app.add_node(graphviz,
+diff -urN -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
+--- dist.orig/sphinx/ext/imgconverter.py	2018-04-15 20:26:58.654734051 +0900
++++ dist/sphinx/ext/imgconverter.py	2018-04-15 20:33:50.025276497 +0900
+@@ -56,7 +56,8 @@
+                     self.config.image_converter_args +
+                     [_from, _to])
+             logger.debug('Invoking %r ...', args)
+-            p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
++            p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
++                                 env=_new_env())
+         except OSError as err:
+             if err.errno != ENOENT:  # No such file or directory
+                 raise
+@@ -80,6 +81,17 @@
+         return True
+ 
+ 
++def _new_env():
++    env = dict(os.environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
++
+ def setup(app):
+     # type: (Sphinx) -> Dict[unicode, Any]
+     app.add_post_transform(ImagemagickConverter)
+diff -urN -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
+--- dist.orig/sphinx/ext/imgmath.py	2018-04-15 20:26:58.654734051 +0900
++++ dist/sphinx/ext/imgmath.py	2018-04-15 20:32:52.883341104 +0900
+@@ -137,7 +137,7 @@
+ 
+     with cd(tempdir):
+         try:
+-            p = Popen(command, stdout=PIPE, stderr=PIPE)
++            p = Popen(command, stdout=PIPE, stderr=PIPE, env=_new_env())
+         except OSError as err:
+             if err.errno != ENOENT:   # No such file or directory
+                 raise
+@@ -157,7 +157,7 @@
+     # type: (List[unicode], unicode) -> Tuple[unicode, unicode]
+     """Convert DVI file to specific image format."""
+     try:
+-        p = Popen(command, stdout=PIPE, stderr=PIPE)
++        p = Popen(command, stdout=PIPE, stderr=PIPE, env=_new_env())
+     except OSError as err:
+         if err.errno != ENOENT:   # No such file or directory
+             raise
+@@ -347,6 +347,17 @@
+     raise nodes.SkipNode
+ 
+ 
++def _new_env():
++    env = dict(os.environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
++
+ def setup(app):
+     # type: (Sphinx) -> Dict[unicode, Any]
+     try:
+diff -urN -urN dist.orig/sphinx/ext/pngmath.py dist/sphinx/ext/pngmath.py
+--- dist.orig/sphinx/ext/pngmath.py	2018-04-15 20:26:58.653734052 +0900
++++ dist/sphinx/ext/pngmath.py	2018-04-15 20:33:26.754302847 +0900
+@@ -132,7 +132,7 @@
+ 
+     with cd(tempdir):
+         try:
+-            p = Popen(ltx_args, stdout=PIPE, stderr=PIPE)
++            p = Popen(ltx_args, stdout=PIPE, stderr=PIPE, env=_new_env())
+         except OSError as err:
+             if err.errno != ENOENT:   # No such file or directory
+                 raise
+@@ -157,7 +157,7 @@
+     # last, the input file name
+     dvipng_args.append(path.join(tempdir, 'math.dvi'))
+     try:
+-        p = Popen(dvipng_args, stdout=PIPE, stderr=PIPE)
++        p = Popen(dvipng_args, stdout=PIPE, stderr=PIPE, env=_new_env())
+     except OSError as err:
+         if err.errno != ENOENT:   # No such file or directory
+             raise
+@@ -254,6 +254,17 @@
+     raise nodes.SkipNode
+ 
+ 
++def _new_env():
++    env = dict(os.environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
++
+ def setup(app):
+     # type: (Sphinx) -> Dict[unicode, Any]
+     logger.warning('sphinx.ext.pngmath has been deprecated. '

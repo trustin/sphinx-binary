@@ -33,11 +33,12 @@ else
   SITEPKG_DIR="build/venv/lib/python3.6/site-packages"
 fi
 pushd "$SITEPKG_DIR"
+patch -p1 < "$PATCH_DIR/docutils.diff"
+patch -p1 < "$PATCH_DIR/sphinx.diff"
 patch -p1 < "$PATCH_DIR/sphinxcontrib-inlinesyntaxhighlight.diff"
 patch -p1 < "$PATCH_DIR/sphinxcontrib-plantuml.diff"
-rm -v sphinxcontrib/__pycache__/inlinesyntaxhighlight.*
-rm -v sphinxcontrib/__pycache__/plantuml.*
-python -m compileall sphinxcontrib
+find . -type d -name '__pycache__' -exec rm -fr {} ';' >/dev/null 2>&1 || true
+python -m compileall . >/dev/null 2>&1
 popd
 
 # Build the binary.
