@@ -1,4 +1,5 @@
 # Build output
 /build
 /dist
-/sphinx.spec
+*.spec
+__pycache__

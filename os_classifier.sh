@@ -1,7 +1,7 @@
 #!/bin/bash -e
-if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
+if [[ "$(uname)" =~ ([Ll]inux) ]]; then
   echo linux-x86_64
-elif [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
+elif [[ "$(uname)" =~ ([Dd]arwin) ]]; then
   echo osx-x86_64
 elif [[ -n "$APPVEYOR" ]]; then
   if [[ "$APPVEYOR_BITS" == '32' ]]; then

@@ -1,11 +1,13 @@
 #!/bin/bash
 # Install or find Python 3.6.
-if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
-  sudo add-apt-repository -y ppa:deadsnakes/ppa
-  sudo apt-get update
-  sudo apt-get install -y python3.6 python3.6-venv python3.6-dev
+if [[ "$(uname)" =~ ([Ll]inux) ]]; then
+  if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
+    sudo add-apt-repository -y ppa:deadsnakes/ppa
+    sudo apt-get update
+    sudo apt-get install -y python3.6 python3.6-venv python3.6-dev
+  fi
   PYTHON=/usr/bin/python3.6
-elif [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
+elif [[ "$(uname)" =~ ([Dd]arwin) ]]; then
   if brew ls --versions python > /dev/null; then
     brew upgrade python3
   else
@@ -19,7 +21,7 @@ elif [[ -n "$APPVEYOR" ]]; then
     PYTHON=/c/Python36-x64/python
   fi
 else
-  echo 'Must run on Travis CI'
+  echo "Unsupported build environment: $(uname -a)"
   exit 1
 fi
 
