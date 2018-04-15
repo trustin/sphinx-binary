@@ -1,0 +1,58 @@
+diff -urN -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.py
+--- dist.orig/sphinxcontrib/plantuml.py	2018-03-27 20:50:05.000000000 +0900
++++ dist/sphinxcontrib/plantuml.py	2018-04-15 19:52:42.196538306 +0900
+@@ -171,7 +171,8 @@
+             p = subprocess.Popen(generate_plantuml_args(self, node, fileformat),
+                                  stdout=f, stdin=subprocess.PIPE,
+                                  stderr=subprocess.PIPE,
+-                                 cwd=absincdir)
++                                 cwd=absincdir,
++                                 env=_new_env())
+         except OSError as err:
+             if err.errno != ENOENT:
+                 raise
+@@ -191,7 +192,8 @@
+                              stdin=subprocess.PIPE,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE,
+-                             cwd=absincdir)
++                             cwd=absincdir,
++                             env=_new_env())
+     except OSError as err:
+         if err.errno != ENOENT:
+             raise
+@@ -305,13 +307,15 @@
+     try:
+         try:
+             p = subprocess.Popen(args, stdout=subprocess.PIPE,
+-                                 stderr=subprocess.PIPE)
++                                 stderr=subprocess.PIPE,
++                                 env=_new_env())
+         except OSError as err:
+             # workaround for missing shebang of epstopdf script
+             if err.errno != getattr(errno, 'ENOEXEC', 0):
+                 raise
+             p = subprocess.Popen(['bash'] + args, stdout=subprocess.PIPE,
+-                                 stderr=subprocess.PIPE)
++                                 stderr=subprocess.PIPE,
++                                 env=_new_env())
+     except OSError as err:
+         if err.errno != ENOENT:
+             raise
+@@ -389,6 +393,16 @@
+     'text': (text_visit_plantuml, None),
+ }
+ 
++def _new_env():
++    env = dict(os.environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
+ def setup(app):
+     app.add_node(plantuml, **_NODE_VISITORS)
+     app.add_directive('uml', UmlDirective)

@@ -34,7 +34,9 @@ else
 fi
 pushd "$SITEPKG_DIR"
 patch -p1 < "$PATCH_DIR/sphinxcontrib-inlinesyntaxhighlight.diff"
+patch -p1 < "$PATCH_DIR/sphinxcontrib-plantuml.diff"
 rm -v sphinxcontrib/__pycache__/inlinesyntaxhighlight.*
+rm -v sphinxcontrib/__pycache__/plantuml.*
 python -m compileall sphinxcontrib
 popd
 
