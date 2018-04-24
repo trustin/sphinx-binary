@@ -13,9 +13,15 @@ hiddenimports = (
     collect_submodules('javasphinx') +
     collect_submodules('recommonmark') +
     collect_submodules('sphinxcontrib') +
+    # sphinxcontrib.*
     ['sphinxcontrib.httpdomain',
      'sphinxcontrib.inlinesyntaxhighlight',
-     'sphinxcontrib.plantuml'])
+     'sphinxcontrib.plantuml'] +
+    # Themes
+    collect_submodules('alabaster') +
+    collect_submodules('guzzle_sphinx_theme') +
+    collect_submodules('sphinx_bootstrap_theme') +
+    collect_submodules('sphinx_rtd_theme'))
 
 datas = collect_data_files('sphinx')
 datas.extend(collect_data_files('alabaster'))

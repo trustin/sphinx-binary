@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -e
+cd "$(dirname "$0")"
+rm -fr build
+
 # Install or find Python 3.6.
 if [[ "$(uname)" =~ ([Ll]inux) ]]; then
   if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
