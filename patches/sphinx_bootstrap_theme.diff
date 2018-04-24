@@ -1,0 +1,22 @@
+diff -urN dist.orig/sphinx_bootstrap_theme/__init__.py dist/sphinx_bootstrap_theme/__init__.py
+--- dist.orig/sphinx_bootstrap_theme/__init__.py	2018-04-12 07:28:04.000000000 +0900
++++ dist/sphinx_bootstrap_theme/__init__.py	2018-04-24 10:14:59.447640178 +0900
+@@ -1,5 +1,6 @@
+ """Sphinx bootstrap theme."""
+ import os
++import sys
+ 
+ VERSION = (0, 6, 5)
+ 
+@@ -8,7 +9,10 @@
+ 
+ def get_html_theme_path():
+     """Return list of HTML theme paths."""
+-    theme_path = os.path.abspath(os.path.dirname(__file__))
++    if getattr(sys, 'frozen', False):
++        theme_path = os.path.join(sys._MEIPASS, 'sphinx_bootstrap_theme')
++    else:
++        theme_path = os.path.abspath(os.path.dirname(__file__))
+     return [theme_path]
+ 
+ def setup(app):

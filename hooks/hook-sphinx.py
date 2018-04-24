@@ -19,12 +19,10 @@ hiddenimports = (
      'sphinxcontrib.plantuml'] +
     # Themes
     collect_submodules('alabaster') +
-    collect_submodules('guzzle_sphinx_theme') +
     collect_submodules('sphinx_bootstrap_theme') +
     collect_submodules('sphinx_rtd_theme'))
 
 datas = collect_data_files('sphinx')
 datas.extend(collect_data_files('alabaster'))
-datas.extend(collect_data_files('guzzle_sphinx_theme'))
 datas.extend(collect_data_files('sphinx_bootstrap_theme'))
 datas.extend(collect_data_files('sphinx_rtd_theme'))

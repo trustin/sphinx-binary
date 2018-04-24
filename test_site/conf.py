@@ -5,7 +5,6 @@ from recommonmark.parser import CommonMarkParser
 import yaml
 
 import alabaster
-import guzzle_sphinx_theme
 import sphinx_bootstrap_theme
 import sphinx_rtd_theme
 
@@ -18,7 +17,6 @@ with open('test.yaml', 'r') as stream:
 
 # Make sure all theme modules are loaded correctly.
 alabaster.get_path()
-guzzle_sphinx_theme.html_theme_path()
 sphinx_bootstrap_theme.get_html_theme_path()
 sphinx_rtd_theme.get_html_theme_path()
 
@@ -45,7 +43,16 @@ source_parsers = {
 }
 
 # HTML options
-html_theme = 'sphinx_rtd_theme'
+#html_theme_path = 'alabaster'
+#html_theme_path = [alabaster.get_path()]
+html_theme = 'bootstrap'
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+#html_theme = 'sphinx_rtd_theme'
+#html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+print(alabaster.get_path())
+print(sphinx_bootstrap_theme.get_html_theme_path())
+print(sphinx_rtd_theme.get_html_theme_path())
+
 html_short_title = "sphinx-maven-plugin"
 htmlhelp_basename = 'sphinx-maven-plugin-doc'
 html_use_index = True

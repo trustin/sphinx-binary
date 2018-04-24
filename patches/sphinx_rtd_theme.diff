@@ -1,0 +1,23 @@
+diff -urN dist.orig/sphinx_rtd_theme/__init__.py dist/sphinx_rtd_theme/__init__.py
+--- dist.orig/sphinx_rtd_theme/__init__.py	2018-04-24 10:00:36.493258953 +0900
++++ dist/sphinx_rtd_theme/__init__.py	2018-04-24 10:17:27.762369979 +0900
+@@ -4,6 +4,7 @@
+ 
+ """
+ from os import path
++import sys
+ 
+ __version__ = '0.3.0'
+ __version_full__ = __version__
+@@ -11,7 +12,10 @@
+ 
+ def get_html_theme_path():
+     """Return list of HTML theme paths."""
+-    cur_dir = path.abspath(path.dirname(path.dirname(__file__)))
++    if getattr(sys, 'frozen', False):
++        cur_dir = sys._MEIPASS
++    else:
++        cur_dir = path.abspath(path.dirname(path.dirname(__file__)))
+     return cur_dir
+ 
+ # See http://www.sphinx-doc.org/en/stable/theming.html#distribute-your-theme-as-a-python-package

@@ -1,0 +1,21 @@
+diff -urN dist.orig/alabaster/__init__.py dist/alabaster/__init__.py
+--- dist.orig/alabaster/__init__.py	2018-04-24 10:00:27.146537303 +0900
++++ dist/alabaster/__init__.py	2018-04-24 10:10:19.466361886 +0900
+@@ -1,4 +1,5 @@
+ import os
++import sys
+ 
+ from alabaster import _version as version
+ 
+@@ -8,7 +9,10 @@
+     Shortcut for users whose theme is next to their conf.py.
+     """
+     # Theme directory is defined as our parent directory
+-    return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
++    if getattr(sys, 'frozen', False):
++        return sys._MEIPASS
++    else:
++        return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+ 
+ 
+ def update_context(app, pagename, templatename, context, doctree):

@@ -21,7 +21,6 @@ pip install \
 
 # Install the themes.
 pip install \
-  'guzzle_sphinx_theme==0.7.11' \
   'sphinx_bootstrap_theme==0.6.5' \
   'sphinx_rtd_theme==0.3.0'
 
@@ -33,10 +32,7 @@ else
   SITEPKG_DIR="build/venv/lib/python3.6/site-packages"
 fi
 pushd "$SITEPKG_DIR"
-patch -p1 < "$PATCH_DIR/docutils.diff"
-patch -p1 < "$PATCH_DIR/sphinx.diff"
-patch -p1 < "$PATCH_DIR/sphinxcontrib-inlinesyntaxhighlight.diff"
-patch -p1 < "$PATCH_DIR/sphinxcontrib-plantuml.diff"
+find "$PATCH_DIR" -name '*.diff' -exec patch -p1 -i {} ';'
 find . -type d -name '__pycache__' -exec rm -fr {} ';' >/dev/null 2>&1 || true
 python -m compileall . >/dev/null 2>&1
 popd
