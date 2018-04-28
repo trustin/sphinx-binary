@@ -1,4 +1,4 @@
-from PyInstaller.utils.hooks import collect_submodules, collect_data_files, is_module_satisfies
+from PyInstaller.utils.hooks import collect_submodules, collect_data_files, copy_metadata, is_module_satisfies
 hiddenimports = (
     collect_submodules('sphinx.builders') +
     collect_submodules('sphinx.environment.collectors') +
@@ -16,7 +16,10 @@ hiddenimports = (
     # sphinxcontrib.*
     ['sphinxcontrib.httpdomain',
      'sphinxcontrib.inlinesyntaxhighlight',
-     'sphinxcontrib.plantuml'] +
+     'sphinxcontrib.openapi',
+     'sphinxcontrib.plantuml',
+     'sphinxcontrib.redoc',
+     'sphinxcontrib.youtube'] +
     # Themes
     collect_submodules('alabaster') +
     collect_submodules('sphinx_bootstrap_theme') +
@@ -26,3 +29,5 @@ datas = collect_data_files('sphinx')
 datas.extend(collect_data_files('alabaster'))
 datas.extend(collect_data_files('sphinx_bootstrap_theme'))
 datas.extend(collect_data_files('sphinx_rtd_theme'))
+datas.extend(collect_data_files('sphinxcontrib'))
+datas.extend(copy_metadata('sphinxcontrib-redoc'))

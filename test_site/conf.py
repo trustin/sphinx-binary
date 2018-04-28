@@ -20,10 +20,10 @@ alabaster.get_path()
 sphinx_bootstrap_theme.get_html_theme_path()
 sphinx_rtd_theme.get_html_theme_path()
 
-project = u'sphinx-maven-plugin'
-copyright = u'2016, Trustin Lee et al'
-version = '1.7'
-release = '1.7.0'
+project = u'sphinx-binary-demo'
+copyright = u'2018, Trustin Lee'
+version = '1.0'
+release = '1.0.0'
 
 # General options
 needs_sphinx = '1.0'
@@ -32,7 +32,8 @@ pygments_style = 'tango'
 add_function_parentheses = True
 
 extensions = ['sphinx.ext.autodoc', 'javasphinx', 'sphinxcontrib.httpdomain',
-              'sphinxcontrib.inlinesyntaxhighlight', 'sphinxcontrib.plantuml']
+              'sphinxcontrib.inlinesyntaxhighlight', 'sphinxcontrib.openapi',
+              'sphinxcontrib.plantuml', 'sphinxcontrib.redoc', 'sphinxcontrib.youtube']
 
 templates_path = ['_templates']
 exclude_trees = ['.build']
@@ -61,3 +62,8 @@ html_static_path = ['_static']
 
 # PlantUML options
 plantuml = "java -jar plantuml-8059.jar"
+
+# ReDoc options
+redoc = [{ 'name': 'Batcomputer API',
+           'page': 'sphinxcontrib-redoc',
+           'spec': 'openapi.yaml' }]

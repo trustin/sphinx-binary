@@ -1,0 +1,23 @@
+diff -urN dist.orig/sphinxcontrib/redoc.py dist/sphinxcontrib/redoc.py
+--- dist.orig/sphinxcontrib/redoc.py	2018-04-28 13:00:32.875853215 +0900
++++ dist/sphinxcontrib/redoc.py	2018-04-28 13:04:10.117356532 +0900
+@@ -11,6 +11,7 @@
+ 
+ import io
+ import os
++import sys
+ 
+ import jinja2
+ import pkg_resources
+@@ -18,7 +19,10 @@
+ from sphinx.util.osutil import copyfile, ensuredir
+ 
+ 
+-here = os.path.abspath(os.path.dirname(__file__))
++if getattr(sys, 'frozen', False):
++    here = os.path.join(sys._MEIPASS, 'sphinxcontrib')
++else:
++    here = os.path.abspath(os.path.dirname(__file__))
+ 
+ with io.open(os.path.join(here, 'redoc.j2'), 'r', encoding='utf-8') as f:
+     template = jinja2.Template(f.read())

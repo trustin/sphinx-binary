@@ -17,7 +17,10 @@ pip install \
   'recommonmark==0.4.0' \
   'sphinxcontrib-httpdomain==1.6.1' \
   'sphinxcontrib-inlinesyntaxhighlight==0.2' \
-  'sphinxcontrib-plantuml==0.11'
+  'sphinxcontrib-openapi==0.3.2' \
+  'sphinxcontrib-plantuml==0.11' \
+  'sphinxcontrib-redoc==1.4.0' \
+  'git+https://github.com/shomah4a/sphinxcontrib.youtube.git@404e8f17c2505333a0781a62800c5a8a08ba3c52#egg=sphinxcontrib.youtube'
 
 # Install the themes.
 pip install \
@@ -32,6 +35,9 @@ else
   SITEPKG_DIR="build/venv/lib/python3.6/site-packages"
 fi
 pushd "$SITEPKG_DIR"
+if [[ ! -a sphinxcontrib/__init__.py ]]; then
+  echo "__import__('pkg_resources').declare_namespace(__name__)" > sphinxcontrib/__init__.py
+fi
 find "$PATCH_DIR" -name '*.diff' -exec patch -p1 -i {} ';'
 find . -type d -name '__pycache__' -exec rm -fr {} ';' >/dev/null 2>&1 || true
 python -m compileall . >/dev/null 2>&1
