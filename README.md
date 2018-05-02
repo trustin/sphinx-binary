@@ -18,7 +18,10 @@ for your convenience:
 - recommonmark
 - sphinxcontrib-httpdomain
 - sphinxcontrib-inlinesyntaxhighlight
+- sphinxcontrib-openapi
 - sphinxcontrib-plantuml
+- sphinxcontrib-redoc
+- sphinxcontrib-youtube
 - guzzle_sphinx_theme
 - sphinx_bootstrap_theme
 - sphinx_rtd_theme
