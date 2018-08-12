@@ -11,12 +11,14 @@ if [[ "$(uname)" =~ ([Ll]inux) ]]; then
   fi
   PYTHON=/usr/bin/python3.6
 elif [[ "$(uname)" =~ ([Dd]arwin) ]]; then
-  BREW_REPO="$(brew --repo homebrew/core)"
-  echo "Updating $BREW_REPO"
-  git -C "$BREW_REPO" fetch --unshallow
-  brew update
-  brew uninstall --ignore-dependencies --force python || true
-  brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/f2a764ef944b1080be64bd88dca9a1d80130c558/Formula/python.rb
+  if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
+    BREW_REPO="$(brew --repo homebrew/core)"
+    echo "Updating $BREW_REPO"
+    git -C "$BREW_REPO" fetch --unshallow
+    brew update
+    brew uninstall --ignore-dependencies --force python || true
+    brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/f2a764ef944b1080be64bd88dca9a1d80130c558/Formula/python.rb
+  fi
   PYTHON=/usr/local/bin/python3
 elif [[ -n "$APPVEYOR" ]]; then
   if [[ "$(./os_classifier.sh)" == 'windows-x86_32' ]]; then
