@@ -1,8 +1,8 @@
 diff -urN -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.py
---- dist.orig/sphinxcontrib/plantuml.py	2018-03-27 20:50:05.000000000 +0900
-+++ dist/sphinxcontrib/plantuml.py	2018-04-15 19:52:42.196538306 +0900
-@@ -171,7 +171,8 @@
-             p = subprocess.Popen(generate_plantuml_args(self, node, fileformat),
+--- dist.orig/sphinxcontrib/plantuml.py	2018-07-22 13:43:31.000000000 +0900
++++ dist/sphinxcontrib/plantuml.py	2018-08-12 17:22:24.619860343 +0900
+@@ -183,7 +183,8 @@
+                                                         fileformat),
                                   stdout=f, stdin=subprocess.PIPE,
                                   stderr=subprocess.PIPE,
 -                                 cwd=absincdir)
@@ -11,7 +11,7 @@ diff -urN -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.p
          except OSError as err:
              if err.errno != ENOENT:
                  raise
-@@ -191,7 +192,8 @@
+@@ -204,7 +205,8 @@
                               stdin=subprocess.PIPE,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE,
@@ -21,7 +21,7 @@ diff -urN -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.p
      except OSError as err:
          if err.errno != ENOENT:
              raise
-@@ -305,13 +307,15 @@
+@@ -345,13 +347,15 @@
      try:
          try:
              p = subprocess.Popen(args, stdout=subprocess.PIPE,
@@ -39,9 +39,9 @@ diff -urN -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.p
      except OSError as err:
          if err.errno != ENOENT:
              raise
-@@ -389,6 +393,16 @@
-     'text': (text_visit_plantuml, None),
+@@ -437,6 +441,16 @@
  }
+ 
  
 +def _new_env():
 +    env = dict(os.environ)  # make a copy of the environment

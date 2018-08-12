@@ -49,7 +49,7 @@ echo "$(which pip) --version: $PIPVER"
 echo "os.classifier: $(./os_classifier.sh)"
 if [[ ! "$PYVER" =~ (^Python 3\.6\.) ]] || \
    [[ ! "$(which python)" =~ (^.*/build/venv/.*$) ]] || \
-   [[ ! "$PIPVER" =~ (^.*pip 10\..*[\\/]build[\\/]venv[\\/].*3\.6[^0-9].*$) ]]; then
-  echo 'Must run on Python 3.6 virtualenv with pip 10'
+   [[ ! "$PIPVER" =~ (^.*pip [1-9][0-9]+\..*[\\/]build[\\/]venv[\\/].*3\.6[^0-9].*$) ]]; then
+  echo 'Must run on Python 3.6 virtualenv with pip 10+'
   exit 1
 fi

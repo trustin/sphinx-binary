@@ -1,13 +1,13 @@
 diff -urN dist.orig/sphinx_rtd_theme/__init__.py dist/sphinx_rtd_theme/__init__.py
---- dist.orig/sphinx_rtd_theme/__init__.py	2018-04-24 10:00:36.493258953 +0900
-+++ dist/sphinx_rtd_theme/__init__.py	2018-04-24 10:17:27.762369979 +0900
+--- dist.orig/sphinx_rtd_theme/__init__.py	2018-08-12 17:22:23.429851293 +0900
++++ dist/sphinx_rtd_theme/__init__.py	2018-08-12 17:22:24.619860343 +0900
 @@ -4,6 +4,7 @@
  
  """
  from os import path
 +import sys
  
- __version__ = '0.3.0'
+ __version__ = '0.4.1'
  __version_full__ = __version__
 @@ -11,7 +12,10 @@
  

@@ -1,15 +1,15 @@
 diff -urN dist.orig/sphinxcontrib/redoc.py dist/sphinxcontrib/redoc.py
---- dist.orig/sphinxcontrib/redoc.py	2018-04-28 13:00:32.875853215 +0900
-+++ dist/sphinxcontrib/redoc.py	2018-04-28 13:04:10.117356532 +0900
+--- dist.orig/sphinxcontrib/redoc.py	2018-08-05 20:40:27.000000000 +0900
++++ dist/sphinxcontrib/redoc.py	2018-08-12 17:18:46.438160442 +0900
 @@ -11,6 +11,7 @@
  
  import io
  import os
 +import sys
+ import json
+ import yaml
  
- import jinja2
- import pkg_resources
-@@ -18,7 +19,10 @@
+@@ -21,7 +22,10 @@
  from sphinx.util.osutil import copyfile, ensuredir
  
  
