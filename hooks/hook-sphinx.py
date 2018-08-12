@@ -9,17 +9,12 @@ hiddenimports = (
     collect_submodules('sphinx.domains') +
     collect_submodules('sphinx.util') +
     ['inspect', 'locale'] +
+    collect_submodules('lib2to3') +
+    collect_submodules('babel') +
     collect_submodules('yaml') +
     collect_submodules('javasphinx') +
     collect_submodules('recommonmark') +
     collect_submodules('sphinxcontrib') +
-    # sphinxcontrib.*
-    ['sphinxcontrib.httpdomain',
-     'sphinxcontrib.inlinesyntaxhighlight',
-     'sphinxcontrib.openapi',
-     'sphinxcontrib.plantuml',
-     'sphinxcontrib.redoc',
-     'sphinxcontrib.youtube'] +
     # Themes
     collect_submodules('alabaster') +
     collect_submodules('sphinx_bootstrap_theme') +

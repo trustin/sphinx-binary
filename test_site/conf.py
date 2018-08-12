@@ -31,9 +31,15 @@ master_doc = 'index'
 pygments_style = 'tango'
 add_function_parentheses = True
 
-extensions = ['sphinx.ext.autodoc', 'javasphinx', 'sphinxcontrib.httpdomain',
-              'sphinxcontrib.inlinesyntaxhighlight', 'sphinxcontrib.openapi',
-              'sphinxcontrib.plantuml', 'sphinxcontrib.redoc', 'sphinxcontrib.youtube']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel', 'sphinx.ext.autosummary',
+              'sphinx.ext.coverage', 'sphinx.ext.doctest', 'sphinx.ext.extlinks',
+              'sphinx.ext.githubpages', 'sphinx.ext.graphviz', 'sphinx.ext.ifconfig',
+              'sphinx.ext.imgconverter', 'sphinx.ext.inheritance_diagram', 'sphinx.ext.intersphinx',
+              'sphinx.ext.linkcode', 'sphinx.ext.imgmath', 'sphinx.ext.napoleon', 'sphinx.ext.todo',
+              'sphinx.ext.viewcode',
+              'javasphinx', 'sphinxcontrib.httpdomain', 'sphinxcontrib.inlinesyntaxhighlight',
+              'sphinxcontrib.openapi', 'sphinxcontrib.plantuml', 'sphinxcontrib.redoc',
+              'sphinxcontrib.youtube']
 
 templates_path = ['_templates']
 exclude_trees = ['.build']
@@ -67,3 +73,7 @@ plantuml = "java -jar plantuml-8059.jar"
 redoc = [{ 'name': 'Batcomputer API',
            'page': 'sphinxcontrib-redoc',
            'spec': 'openapi.yaml' }]
+
+# linkcode options
+def linkcode_resolve(domain, info):
+    return "https://example.com/linkcode.html"
