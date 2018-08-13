@@ -14,6 +14,7 @@ hiddenimports = (
     collect_submodules('yaml') +
     collect_submodules('javasphinx') +
     collect_submodules('recommonmark') +
+    collect_submodules('sphinx_markdown_tables') +
     collect_submodules('sphinxcontrib') +
     # Themes
     collect_submodules('alabaster') +

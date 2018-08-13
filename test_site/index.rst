@@ -4,6 +4,7 @@ Sphinx binary test site
 .. toctree::
    :maxdepth: 2
 
+   recommonmark
    sphinxcontrib-inlinesyntaxhighlight
    sphinxcontrib-httpdomain
    sphinxcontrib-openapi

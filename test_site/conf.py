@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
-from recommonmark.parser import CommonMarkParser
 import yaml
 
 import alabaster
@@ -36,8 +35,8 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel', 'sphinx.ext.a
               'sphinx.ext.githubpages', 'sphinx.ext.graphviz', 'sphinx.ext.ifconfig',
               'sphinx.ext.imgconverter', 'sphinx.ext.inheritance_diagram', 'sphinx.ext.intersphinx',
               'sphinx.ext.linkcode', 'sphinx.ext.imgmath', 'sphinx.ext.napoleon', 'sphinx.ext.todo',
-              'sphinx.ext.viewcode',
-              'javasphinx', 'sphinxcontrib.httpdomain', 'sphinxcontrib.inlinesyntaxhighlight',
+              'sphinx.ext.viewcode', 'javasphinx', 'sphinx_markdown_tables',
+              'sphinxcontrib.httpdomain', 'sphinxcontrib.inlinesyntaxhighlight',
               'sphinxcontrib.openapi', 'sphinxcontrib.plantuml', 'sphinxcontrib.redoc',
               'sphinxcontrib.youtube']
 
@@ -46,7 +45,7 @@ exclude_trees = ['.build']
 source_suffix = ['.rst', '.md']
 source_encoding = 'utf-8-sig'
 source_parsers = {
-  '.md': CommonMarkParser
+  '.md': 'recommonmark.parser.CommonMarkParser'
 }
 
 # HTML options

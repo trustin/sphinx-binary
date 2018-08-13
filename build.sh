@@ -20,7 +20,8 @@ pip install \
   'sphinxcontrib-openapi==0.3.2' \
   'sphinxcontrib-plantuml==0.12' \
   'sphinxcontrib-redoc==1.5.1' \
-  'git+https://github.com/shomah4a/sphinxcontrib.youtube.git@404e8f17c2505333a0781a62800c5a8a08ba3c52#egg=sphinxcontrib.youtube'
+  'git+https://github.com/shomah4a/sphinxcontrib.youtube.git@404e8f17c2505333a0781a62800c5a8a08ba3c52#egg=sphinxcontrib.youtube' \
+  'sphinx-markdown-tables==0.0.8'
 
 # Install the themes.
 pip install \
