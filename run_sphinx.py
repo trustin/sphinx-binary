@@ -8,4 +8,4 @@ os.putenv("LC_ALL", "en_US.UTF-8")
 os.putenv("TZ", "UTC")
 
 # Launch Sphinx
-build_main(sys.argv[1:])
+sys.exit(build_main(sys.argv[1:]))
