@@ -1,7 +1,15 @@
 diff -urN dist.orig/sphinx/builders/applehelp.py dist/sphinx/builders/applehelp.py
 --- dist.orig/sphinx/builders/applehelp.py	2018-11-11 14:47:20.000000000 +0900
-+++ dist/sphinx/builders/applehelp.py	2018-11-24 08:50:45.894577340 +0900
-@@ -231,7 +231,8 @@
++++ dist/sphinx/builders/applehelp.py	2018-11-24 09:37:58.181510454 +0900
+@@ -11,6 +11,7 @@
+ from __future__ import print_function
+ 
+ import codecs
++import os
+ import pipes
+ import plistlib
+ import shlex
+@@ -231,7 +232,8 @@
              try:
                  p = subprocess.Popen(args,
                                       stdout=subprocess.PIPE,
@@ -11,7 +19,7 @@ diff -urN dist.orig/sphinx/builders/applehelp.py dist/sphinx/builders/applehelp.
  
                  output = p.communicate()[0]
  
-@@ -264,7 +265,8 @@
+@@ -264,7 +266,8 @@
                  try:
                      p = subprocess.Popen(args,
                                           stdout=subprocess.PIPE,
@@ -21,7 +29,7 @@ diff -urN dist.orig/sphinx/builders/applehelp.py dist/sphinx/builders/applehelp.
  
                      output = p.communicate()[0]
  
-@@ -276,6 +278,17 @@
+@@ -276,6 +279,17 @@
                      raise AppleHelpCodeSigningFailed(__('Command not found: %s') % args[0])
  
  
@@ -41,8 +49,16 @@ diff -urN dist.orig/sphinx/builders/applehelp.py dist/sphinx/builders/applehelp.
      app.setup_extension('sphinx.builders.html')
 diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
 --- dist.orig/sphinx/ext/graphviz.py	2018-11-11 14:47:20.000000000 +0900
-+++ dist/sphinx/ext/graphviz.py	2018-11-24 08:47:29.972506216 +0900
-@@ -246,6 +246,7 @@
++++ dist/sphinx/ext/graphviz.py	2018-11-24 09:36:52.971512778 +0900
+@@ -11,6 +11,7 @@
+ """
+ 
+ import codecs
++import os
+ import posixpath
+ import re
+ from hashlib import sha1
+@@ -246,6 +247,7 @@
      if format == 'png':
          dot_args.extend(['-Tcmapx', '-o%s.map' % outfn])
      try:
@@ -50,7 +66,7 @@ diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
          p = Popen(dot_args, stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=cwd)
      except OSError as err:
          if err.errno != ENOENT:   # No such file or directory
-@@ -416,6 +417,17 @@
+@@ -416,6 +418,17 @@
          copy_asset(src, dst)
  
  
@@ -70,8 +86,16 @@ diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
      app.add_node(graphviz,
 diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
 --- dist.orig/sphinx/ext/imgconverter.py	2018-11-11 14:47:20.000000000 +0900
-+++ dist/sphinx/ext/imgconverter.py	2018-11-24 08:48:47.273920254 +0900
-@@ -39,7 +39,8 @@
++++ dist/sphinx/ext/imgconverter.py	2018-11-24 09:37:08.971490704 +0900
+@@ -9,6 +9,7 @@
+     :license: BSD, see LICENSE for details.
+ """
+ import locale
++import os
+ import subprocess
+ 
+ from sphinx.errors import ExtensionError
+@@ -39,7 +40,8 @@
          try:
              args = [self.config.image_converter, '-version']
              logger.debug('Invoking %r ...', args)
@@ -81,7 +105,7 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
          except (OSError, IOError):
              logger.warning(__('convert command %r cannot be run.'
                                'check the image_converter setting'),
-@@ -98,6 +99,17 @@
+@@ -98,6 +100,17 @@
          return True
  
  
@@ -101,8 +125,16 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
      app.add_post_transform(ImagemagickConverter)
 diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
 --- dist.orig/sphinx/ext/imgmath.py	2018-11-11 14:47:20.000000000 +0900
-+++ dist/sphinx/ext/imgmath.py	2018-11-24 08:49:48.864342736 +0900
-@@ -136,7 +136,7 @@
++++ dist/sphinx/ext/imgmath.py	2018-11-24 09:37:20.711474920 +0900
+@@ -11,6 +11,7 @@
+ 
+ import codecs
+ import posixpath
++import os
+ import re
+ import shutil
+ import tempfile
+@@ -136,7 +137,7 @@
  
      with cd(tempdir):
          try:
@@ -111,7 +143,7 @@ diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
          except OSError as err:
              if err.errno != ENOENT:   # No such file or directory
                  raise
-@@ -156,7 +156,7 @@
+@@ -156,7 +157,7 @@
      # type: (List[unicode], unicode) -> Tuple[unicode, unicode]
      """Convert DVI file to specific image format."""
      try:
@@ -120,7 +152,7 @@ diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
      except OSError as err:
          if err.errno != ENOENT:   # No such file or directory
              raise
-@@ -345,6 +345,17 @@
+@@ -345,6 +346,17 @@
      raise nodes.SkipNode
  
  

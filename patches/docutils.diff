@@ -1,7 +1,15 @@
-diff -urN -urN dist.orig/docutils/utils/math/tex2mathml_extern.py dist/utils/math/tex2mathml_extern.py
---- dist.orig/docutils/utils/math/tex2mathml_extern.py	2018-04-15 20:26:58.622734086 +0900
-+++ dist/docutils/utils/math/tex2mathml_extern.py	2018-04-15 20:35:16.822177739 +0900
-@@ -37,7 +37,8 @@
+diff -urN dist.orig/docutils/utils/math/tex2mathml_extern.py dist/docutils/utils/math/tex2mathml_extern.py
+--- dist.orig/docutils/utils/math/tex2mathml_extern.py	2015-04-11 08:48:51.000000000 +0900
++++ dist/docutils/utils/math/tex2mathml_extern.py	2018-11-24 09:44:38.701435562 +0900
+@@ -15,6 +15,7 @@
+ # Wrappers for TeX->MathML conversion by external tools
+ # =====================================================
+ 
++import os
+ import subprocess
+ 
+ document_template = r"""\documentclass{article}
+@@ -37,7 +38,8 @@
                              stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE,
@@ -11,7 +19,7 @@ diff -urN -urN dist.orig/docutils/utils/math/tex2mathml_extern.py dist/utils/mat
      p.stdin.write((document_template % math_code).encode('utf8'))
      p.stdin.close()
      latexml_code = p.stdout.read()
-@@ -55,7 +56,8 @@
+@@ -55,7 +57,8 @@
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE,
@@ -21,7 +29,7 @@ diff -urN -urN dist.orig/docutils/utils/math/tex2mathml_extern.py dist/utils/mat
      post_p.stdin.write(latexml_code)
      post_p.stdin.close()
      result = post_p.stdout.read().decode('utf8')
-@@ -83,7 +85,8 @@
+@@ -83,7 +86,8 @@
                           stdin=subprocess.PIPE,
                           stdout=subprocess.PIPE,
                           stderr=subprocess.PIPE,
@@ -31,7 +39,7 @@ diff -urN -urN dist.orig/docutils/utils/math/tex2mathml_extern.py dist/utils/mat
      p.stdin.write((document_template % math_code).encode('utf8'))
      p.stdin.close()
      result = p.stdout.read()
-@@ -121,7 +124,8 @@
+@@ -121,7 +125,8 @@
                           stdin=subprocess.PIPE,
                           stdout=subprocess.PIPE,
                           stderr=subprocess.PIPE,
@@ -41,7 +49,7 @@ diff -urN -urN dist.orig/docutils/utils/math/tex2mathml_extern.py dist/utils/mat
      p.stdin.write(math_code.encode('utf8'))
      p.stdin.close()
      result = p.stdout.read().decode('utf8')
-@@ -138,6 +142,18 @@
+@@ -138,6 +143,18 @@
                '%s</math>\n') % (mathmode_arg, result[start:end])
      return result
  
