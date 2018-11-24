@@ -18,8 +18,9 @@ pip install \
   'sphinxcontrib-httpdomain==1.7.0' \
   'sphinxcontrib-inlinesyntaxhighlight==0.2' \
   'sphinxcontrib-openapi==0.3.2' \
-  'sphinxcontrib-plantuml==0.12' \
+  'sphinxcontrib-plantuml==0.12' 'Pillow==5.3.0' \
   'sphinxcontrib-redoc==1.5.1' \
+  'sphinxcontrib-websupport==1.1.0' \
   'git+https://github.com/shomah4a/sphinxcontrib.youtube.git@404e8f17c2505333a0781a62800c5a8a08ba3c52#egg=sphinxcontrib.youtube' \
   'sphinx-markdown-tables==0.0.9'
 
