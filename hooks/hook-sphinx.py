@@ -5,6 +5,7 @@ hiddenimports = (
     collect_submodules('sphinx.ext') +
     collect_submodules('sphinx.parsers') +
     collect_submodules('sphinx.search') +
+    collect_submodules('sphinx.transforms') +
     collect_submodules('sphinx.websupport.search') +
     collect_submodules('sphinx.domains') +
     collect_submodules('sphinx.util') +

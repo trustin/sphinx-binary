@@ -1,17 +1,57 @@
-diff -urN -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
---- dist.orig/sphinx/ext/graphviz.py	2018-04-15 20:26:58.654734051 +0900
-+++ dist/sphinx/ext/graphviz.py	2018-04-15 20:32:24.077373547 +0900
-@@ -237,7 +237,7 @@
+diff -urN dist.orig/sphinx/builders/applehelp.py dist/sphinx/builders/applehelp.py
+--- dist.orig/sphinx/builders/applehelp.py	2018-11-11 14:47:20.000000000 +0900
++++ dist/sphinx/builders/applehelp.py	2018-11-24 08:50:45.894577340 +0900
+@@ -231,7 +231,8 @@
+             try:
+                 p = subprocess.Popen(args,
+                                      stdout=subprocess.PIPE,
+-                                     stderr=subprocess.STDOUT)
++                                     stderr=subprocess.STDOUT,
++                                     env=_new_env())
+ 
+                 output = p.communicate()[0]
+ 
+@@ -264,7 +265,8 @@
+                 try:
+                     p = subprocess.Popen(args,
+                                          stdout=subprocess.PIPE,
+-                                         stderr=subprocess.STDOUT)
++                                         stderr=subprocess.STDOUT,
++                                         env=_new_env())
+ 
+                     output = p.communicate()[0]
+ 
+@@ -276,6 +278,17 @@
+                     raise AppleHelpCodeSigningFailed(__('Command not found: %s') % args[0])
+ 
+ 
++def _new_env():
++    env = dict(os.environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
++
+ def setup(app):
+     # type: (Sphinx) -> Dict[unicode, Any]
+     app.setup_extension('sphinx.builders.html')
+diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
+--- dist.orig/sphinx/ext/graphviz.py	2018-11-11 14:47:20.000000000 +0900
++++ dist/sphinx/ext/graphviz.py	2018-11-24 08:47:29.972506216 +0900
+@@ -246,6 +246,7 @@
      if format == 'png':
          dot_args.extend(['-Tcmapx', '-o%s.map' % outfn])
      try:
--        p = Popen(dot_args, stdout=PIPE, stdin=PIPE, stderr=PIPE)
-+        p = Popen(dot_args, stdout=PIPE, stdin=PIPE, stderr=PIPE, env=_new_env())
++        p = Popen(dot_args, stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=cwd, env=_new_env())
+         p = Popen(dot_args, stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=cwd)
      except OSError as err:
          if err.errno != ENOENT:   # No such file or directory
-             raise
-@@ -389,6 +389,17 @@
-     raise nodes.SkipNode
+@@ -416,6 +417,17 @@
+         copy_asset(src, dst)
  
  
 +def _new_env():
@@ -28,10 +68,10 @@ diff -urN -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
  def setup(app):
      # type: (Sphinx) -> Dict[unicode, Any]
      app.add_node(graphviz,
-diff -urN -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
---- dist.orig/sphinx/ext/imgconverter.py	2018-04-15 20:26:58.654734051 +0900
-+++ dist/sphinx/ext/imgconverter.py	2018-04-15 20:33:50.025276497 +0900
-@@ -38,7 +38,8 @@
+diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
+--- dist.orig/sphinx/ext/imgconverter.py	2018-11-11 14:47:20.000000000 +0900
++++ dist/sphinx/ext/imgconverter.py	2018-11-24 08:48:47.273920254 +0900
+@@ -39,7 +39,8 @@
          try:
              args = [self.config.image_converter, '-version']
              logger.debug('Invoking %r ...', args)
@@ -41,7 +81,7 @@ diff -urN -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter
          except (OSError, IOError):
              logger.warning(__('convert command %r cannot be run.'
                                'check the image_converter setting'),
-@@ -93,6 +94,17 @@
+@@ -98,6 +99,17 @@
          return True
  
  
@@ -59,10 +99,10 @@ diff -urN -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter
  def setup(app):
      # type: (Sphinx) -> Dict[unicode, Any]
      app.add_post_transform(ImagemagickConverter)
-diff -urN -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
---- dist.orig/sphinx/ext/imgmath.py	2018-04-15 20:26:58.654734051 +0900
-+++ dist/sphinx/ext/imgmath.py	2018-04-15 20:32:52.883341104 +0900
-@@ -137,7 +137,7 @@
+diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
+--- dist.orig/sphinx/ext/imgmath.py	2018-11-11 14:47:20.000000000 +0900
++++ dist/sphinx/ext/imgmath.py	2018-11-24 08:49:48.864342736 +0900
+@@ -136,7 +136,7 @@
  
      with cd(tempdir):
          try:
@@ -71,7 +111,7 @@ diff -urN -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
          except OSError as err:
              if err.errno != ENOENT:   # No such file or directory
                  raise
-@@ -157,7 +157,7 @@
+@@ -156,7 +156,7 @@
      # type: (List[unicode], unicode) -> Tuple[unicode, unicode]
      """Convert DVI file to specific image format."""
      try:
@@ -80,7 +120,7 @@ diff -urN -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
      except OSError as err:
          if err.errno != ENOENT:   # No such file or directory
              raise
-@@ -347,6 +347,17 @@
+@@ -345,6 +345,17 @@
      raise nodes.SkipNode
  
  
@@ -97,43 +137,4 @@ diff -urN -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
 +
  def setup(app):
      # type: (Sphinx) -> Dict[unicode, Any]
-     try:
-diff -urN -urN dist.orig/sphinx/ext/pngmath.py dist/sphinx/ext/pngmath.py
---- dist.orig/sphinx/ext/pngmath.py	2018-04-15 20:26:58.653734052 +0900
-+++ dist/sphinx/ext/pngmath.py	2018-04-15 20:33:26.754302847 +0900
-@@ -132,7 +132,7 @@
- 
-     with cd(tempdir):
-         try:
--            p = Popen(ltx_args, stdout=PIPE, stderr=PIPE)
-+            p = Popen(ltx_args, stdout=PIPE, stderr=PIPE, env=_new_env())
-         except OSError as err:
-             if err.errno != ENOENT:   # No such file or directory
-                 raise
-@@ -157,7 +157,7 @@
-     # last, the input file name
-     dvipng_args.append(path.join(tempdir, 'math.dvi'))
-     try:
--        p = Popen(dvipng_args, stdout=PIPE, stderr=PIPE)
-+        p = Popen(dvipng_args, stdout=PIPE, stderr=PIPE, env=_new_env())
-     except OSError as err:
-         if err.errno != ENOENT:   # No such file or directory
-             raise
-@@ -254,6 +254,17 @@
-     raise nodes.SkipNode
- 
- 
-+def _new_env():
-+    env = dict(os.environ)  # make a copy of the environment
-+    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
-+    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
-+    if lp_orig is not None:
-+        env[lp_key] = lp_orig  # restore the original, unmodified value
-+    else:
-+        env.pop(lp_key, None)  # last resort: remove the env var
-+    return env
-+
-+
- def setup(app):
-     # type: (Sphinx) -> Dict[unicode, Any]
-     logger.warning('sphinx.ext.pngmath has been deprecated. '
+     app.add_html_math_renderer('imgmath',

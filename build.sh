@@ -7,9 +7,9 @@ fi
 
 # Install the core packages.
 pip install \
-  'PyInstaller==3.3.1' \
+  'PyInstaller==3.4' \
   'PyYAML==3.13' \
-  'Sphinx==1.7.6'
+  'Sphinx==1.8.2'
 
 # Install the extensions.
 pip install \
@@ -21,12 +21,12 @@ pip install \
   'sphinxcontrib-plantuml==0.12' \
   'sphinxcontrib-redoc==1.5.1' \
   'git+https://github.com/shomah4a/sphinxcontrib.youtube.git@404e8f17c2505333a0781a62800c5a8a08ba3c52#egg=sphinxcontrib.youtube' \
-  'sphinx-markdown-tables==0.0.8'
+  'sphinx-markdown-tables==0.0.9'
 
 # Install the themes.
 pip install \
   'sphinx_bootstrap_theme==0.6.5' \
-  'sphinx_rtd_theme==0.4.1'
+  'sphinx_rtd_theme==0.4.2'
 
 # Apply some patches and recompile the patched files.
 PATCH_DIR="$PWD/patches"
