@@ -3,6 +3,8 @@ cd "$(dirname "$0")"
 rm -fr build
 
 # Install or find Python 3.6.
+# Note that we can upgrade to 3.7 only after upgrading from Trusty to Xenial.
+# See: https://github.com/deadsnakes/issues/issues/63
 if [[ "$(uname)" =~ ([Ll]inux) ]]; then
   if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
     sudo add-apt-repository -y ppa:deadsnakes/ppa
@@ -12,10 +14,11 @@ if [[ "$(uname)" =~ ([Ll]inux) ]]; then
   PYTHON=/usr/bin/python3.6
 elif [[ "$(uname)" =~ ([Dd]arwin) ]]; then
   if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
-    BREW_REPO="$(brew --repo homebrew/core)"
-    echo "Updating $BREW_REPO"
-    git -C "$BREW_REPO" fetch --unshallow
-    brew update
+    #BREW_REPO="$(brew --repo homebrew/core)"
+    #echo "Updating $BREW_REPO"
+    #git -C "$BREW_REPO" fetch --unshallow
+    #brew update
+    export HOMEBREW_NO_AUTO_UPDATE=1
     brew uninstall --ignore-dependencies --force python || true
     brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/f2a764ef944b1080be64bd88dca9a1d80130c558/Formula/python.rb
   fi

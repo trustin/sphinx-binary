@@ -28,3 +28,6 @@ datas.extend(collect_data_files('sphinx_bootstrap_theme'))
 datas.extend(collect_data_files('sphinx_rtd_theme'))
 datas.extend(collect_data_files('sphinxcontrib'))
 datas.extend(copy_metadata('sphinxcontrib-redoc'))
+
+# https://github.com/pyinstaller/pyinstaller/issues/4100
+datas.extend(copy_metadata('jsonschema'))

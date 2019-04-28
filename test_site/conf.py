@@ -9,7 +9,7 @@ import sphinx_rtd_theme
 
 # Ensure we can load a YAML file.
 with open('test.yaml', 'r') as stream:
-    test_yaml = yaml.load(stream)
+    test_yaml = yaml.load(stream, Loader=yaml.FullLoader)
     assert test_yaml[0] == 'a'
     assert test_yaml[1] == 'b'
     assert test_yaml[2] == 'c'
@@ -35,7 +35,7 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel', 'sphinx.ext.a
               'sphinx.ext.githubpages', 'sphinx.ext.graphviz', 'sphinx.ext.ifconfig',
               'sphinx.ext.imgconverter', 'sphinx.ext.inheritance_diagram', 'sphinx.ext.intersphinx',
               'sphinx.ext.linkcode', 'sphinx.ext.imgmath', 'sphinx.ext.napoleon', 'sphinx.ext.todo',
-              'sphinx.ext.viewcode', 'javasphinx', 'sphinx_markdown_tables',
+              'sphinx.ext.viewcode', 'sphinx_markdown_tables',
               'sphinxcontrib.httpdomain', 'sphinxcontrib.inlinesyntaxhighlight',
               'sphinxcontrib.openapi', 'sphinxcontrib.plantuml', 'sphinxcontrib.redoc',
               'sphinxcontrib.youtube']
@@ -66,7 +66,7 @@ html_show_sourcelink = False
 html_static_path = ['_static']
 
 # PlantUML options
-plantuml = "java -jar plantuml-1.2018.12.jar"
+plantuml = "java -jar plantuml-1.2019.5.jar"
 
 # ReDoc options
 redoc = [{ 'name': 'Batcomputer API',

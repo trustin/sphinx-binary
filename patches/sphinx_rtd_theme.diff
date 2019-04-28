@@ -1,13 +1,13 @@
 diff -urN dist.orig/sphinx_rtd_theme/__init__.py dist/sphinx_rtd_theme/__init__.py
---- dist.orig/sphinx_rtd_theme/__init__.py	2018-10-05 20:31:07.000000000 +0900
-+++ dist/sphinx_rtd_theme/__init__.py	2018-11-24 08:59:14.763484412 +0900
+--- dist.orig/sphinx_rtd_theme/__init__.py	2019-02-13 04:37:55.000000000 +0900
++++ dist/sphinx_rtd_theme/__init__.py	2019-04-28 11:02:47.203040056 +0900
 @@ -4,6 +4,7 @@
  
  """
  from os import path
 +import sys
  
- __version__ = '0.4.2'
+ __version__ = '0.4.3'
  __version_full__ = __version__
 @@ -11,7 +12,10 @@
  
@@ -20,4 +20,4 @@ diff -urN dist.orig/sphinx_rtd_theme/__init__.py dist/sphinx_rtd_theme/__init__.
 +        cur_dir = path.abspath(path.dirname(path.dirname(__file__)))
      return cur_dir
  
- # See http://www.sphinx-doc.org/en/stable/theming.html#distribute-your-theme-as-a-python-package
+ 
