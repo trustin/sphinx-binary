@@ -66,7 +66,7 @@ html_show_sourcelink = False
 html_static_path = ['_static']
 
 # PlantUML options
-plantuml = "java -jar plantuml-1.2019.5.jar"
+plantuml = "java -jar plantuml-1.2019.7.jar"
 
 # ReDoc options
 redoc = [{ 'name': 'Batcomputer API',

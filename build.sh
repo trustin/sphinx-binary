@@ -8,8 +8,8 @@ fi
 # Install the core packages.
 pip install \
   'PyInstaller==3.4' \
-  'PyYAML==5.1' \
-  'Sphinx==2.0.1'
+  'PyYAML==5.1.1' \
+  'Sphinx==2.1.2'
 
 # Install the extensions.
 pip install \
@@ -17,9 +17,9 @@ pip install \
   'sphinxcontrib-httpdomain==1.7.0' \
   'sphinxcontrib-inlinesyntaxhighlight==0.2' \
   'sphinxcontrib-openapi==0.4.0' \
-  'sphinxcontrib-plantuml==0.15' 'Pillow==6.0.0' \
+  'sphinxcontrib-plantuml==0.17' 'Pillow==6.0.0' \
   'sphinxcontrib-redoc==1.5.1' \
-  'sphinxcontrib-websupport==1.1.0' \
+  'sphinxcontrib-websupport==1.1.2' \
   'git+https://github.com/shomah4a/sphinxcontrib.youtube.git@404e8f17c2505333a0781a62800c5a8a08ba3c52#egg=sphinxcontrib.youtube' \
   'sphinx-markdown-tables==0.0.9'
 

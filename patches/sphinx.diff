@@ -1,7 +1,7 @@
 diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
 --- dist.orig/sphinx/cmd/make_mode.py	2019-04-08 11:25:09.000000000 +0900
 +++ dist/sphinx/cmd/make_mode.py	2019-04-28 10:57:34.455970210 +0900
-@@ -104,7 +104,7 @@
+@@ -112,7 +112,7 @@
              makecmd = self.makecmd
          try:
              with cd(self.builddir_join('latex')):
@@ -10,7 +10,7 @@ diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
          except OSError:
              print('Error: Failed to run: %s' % makecmd)
              return 1
-@@ -120,7 +120,7 @@
+@@ -128,7 +128,7 @@
              makecmd = self.makecmd
          try:
              with cd(self.builddir_join('latex')):
@@ -19,7 +19,7 @@ diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
          except OSError:
              print('Error: Failed to run: %s' % makecmd)
              return 1
-@@ -131,7 +131,7 @@
+@@ -139,7 +139,7 @@
              return 1
          try:
              with cd(self.builddir_join('texinfo')):
@@ -28,7 +28,7 @@ diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
          except OSError:
              print('Error: Failed to run: %s' % self.makecmd)
              return 1
-@@ -171,3 +171,14 @@
+@@ -179,3 +179,14 @@
      if hasattr(make, run_method):
          return getattr(make, run_method)()
      return make.run_generic_build(args[0])
@@ -139,7 +139,7 @@ diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
  import re
  import shutil
  import subprocess
-@@ -133,7 +134,7 @@
+@@ -146,7 +147,7 @@
      command.append('math.tex')
  
      try:
@@ -148,7 +148,7 @@ diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
          return path.join(tempdir, 'math.dvi')
      except OSError:
          logger.warning(__('LaTeX command %r cannot be run (needed for math '
-@@ -148,7 +149,7 @@
+@@ -161,7 +162,7 @@
      # type: (List[str], str) -> Tuple[bytes, bytes]
      """Convert DVI file to specific image format."""
      try:
@@ -157,8 +157,8 @@ diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
          return ret.stdout, ret.stderr
      except OSError:
          logger.warning(__('%s command %r cannot be run (needed for math '
-@@ -332,6 +333,17 @@
-     raise nodes.SkipNode
+@@ -354,6 +355,17 @@
+                  RemovedInSphinx40Warning)
  
  
 +def _new_env():

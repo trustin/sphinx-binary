@@ -1,0 +1,38 @@
+diff -urN dist.orig/sphinxcontrib/applehelp/__init__.py dist/sphinxcontrib/applehelp/__init__.py
+--- dist.orig/sphinxcontrib/applehelp/__init__.py	2019-06-30 13:10:54.368728747 +0900
++++ dist/sphinxcontrib/applehelp/__init__.py	2019-06-30 13:14:28.947028771 +0900
+@@ -194,7 +194,7 @@
+                                       ' '.join([shlex.quote(arg) for arg in args]))
+         else:
+             try:
+-                subprocess.run(args, stdout=PIPE, stderr=STDOUT, check=True)
++                subprocess.run(args, stdout=PIPE, stderr=STDOUT, env=_new_env(), check=True)
+             except OSError:
+                 raise AppleHelpIndexerFailed(__('Command not found: %s') % args[0])
+             except CalledProcessError as exc:
+@@ -218,13 +218,24 @@
+                                       ' '.join([shlex.quote(arg) for arg in args]))
+         else:
+             try:
+-                subprocess.run(args, stdout=PIPE, stderr=STDOUT, check=True)
++                subprocess.run(args, stdout=PIPE, stderr=STDOUT, env=_new_env(), check=True)
+             except OSError:
+                 raise AppleHelpCodeSigningFailed(__('Command not found: %s') % args[0])
+             except CalledProcessError as exc:
+                 raise AppleHelpCodeSigningFailed(exc.stdout)
+ 
+ 
++def _new_env():
++    env = dict(environ)  # make a copy of the environment
++    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
++    lp_orig = env.get(lp_key + '_ORIG')  # pyinstaller >= 20160820 has this
++    if lp_orig is not None:
++        env[lp_key] = lp_orig  # restore the original, unmodified value
++    else:
++        env.pop(lp_key, None)  # last resort: remove the env var
++    return env
++
++
+ def setup(app: Sphinx) -> Dict[str, Any]:
+     app.setup_extension('sphinx.builders.html')
+     app.add_builder(AppleHelpBuilder)
