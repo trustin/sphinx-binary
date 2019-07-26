@@ -36,9 +36,9 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel', 'sphinx.ext.a
               'sphinx.ext.imgconverter', 'sphinx.ext.inheritance_diagram', 'sphinx.ext.intersphinx',
               'sphinx.ext.linkcode', 'sphinx.ext.imgmath', 'sphinx.ext.napoleon', 'sphinx.ext.todo',
               'sphinx.ext.viewcode', 'sphinx_markdown_tables',
-              'sphinxcontrib.httpdomain', 'sphinxcontrib.inlinesyntaxhighlight',
+              'sphinxcontrib.httpdomain', 'sphinxcontrib.imagesvg', 'sphinxcontrib.inlinesyntaxhighlight',
               'sphinxcontrib.openapi', 'sphinxcontrib.plantuml', 'sphinxcontrib.redoc',
-              'sphinxcontrib.youtube']
+              'sphinxcontrib.youtube', 'sphinxemoji.sphinxemoji']
 
 templates_path = ['_templates']
 exclude_trees = ['.build']
@@ -72,6 +72,9 @@ plantuml = "java -jar plantuml-1.2019.7.jar"
 redoc = [{ 'name': 'Batcomputer API',
            'page': 'sphinxcontrib-redoc',
            'spec': 'openapi.yaml' }]
+
+# SphinxEmoji options
+sphinxemoji_style = 'twemoji'
 
 # linkcode options
 def linkcode_resolve(domain, info):

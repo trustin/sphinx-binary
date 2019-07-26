@@ -11,7 +11,7 @@ cache:
     - "$HOME/Library/Caches/Homebrew"
     - "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core"
 install:
-  - ./install.sh
+  - ./prepare.sh
 script:
   - ./build.sh
 notifications:

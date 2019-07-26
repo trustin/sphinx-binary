@@ -7,7 +7,7 @@ fi
 
 # Install the core packages.
 pip install \
-  'PyInstaller==3.4' \
+  'PyInstaller==3.5' \
   'PyYAML==5.1.1' \
   'Sphinx==2.1.2'
 
@@ -15,12 +15,13 @@ pip install \
 pip install \
   'recommonmark==0.5.0' \
   'sphinxcontrib-httpdomain==1.7.0' \
-  'sphinxcontrib-inlinesyntaxhighlight==0.2' \
+  'sphinxcontrib-imagesvg==0.1' \
   'sphinxcontrib-openapi==0.4.0' \
-  'sphinxcontrib-plantuml==0.17' 'Pillow==6.0.0' \
+  'sphinxcontrib-plantuml==0.17' 'Pillow==6.1.0' \
   'sphinxcontrib-redoc==1.5.1' \
   'sphinxcontrib-websupport==1.1.2' \
-  'git+https://github.com/shomah4a/sphinxcontrib.youtube.git@404e8f17c2505333a0781a62800c5a8a08ba3c52#egg=sphinxcontrib.youtube' \
+  'git+https://github.com/sphinx-contrib/youtube.git@f321c6720647c68e85777b714f80cefedb05e6df#egg=sphinxcontrib.youtube' \
+  'sphinxemoji==0.1.4' \
   'sphinx-markdown-tables==0.0.9'
 
 # Install the themes.

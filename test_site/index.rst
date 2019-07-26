@@ -6,9 +6,10 @@ Sphinx binary test site
 
    graphviz
    recommonmark
-   sphinxcontrib-inlinesyntaxhighlight
    sphinxcontrib-httpdomain
+   sphinxcontrib-imagesvg
    sphinxcontrib-openapi
    sphinxcontrib-plantuml
    sphinxcontrib-redoc demo <sphinxcontrib-redoc.html#://>
    sphinxcontrib-youtube
+   sphinxemoji
