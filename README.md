@@ -14,14 +14,15 @@ As well as vanilla Sphinx, the following modules are provided out of the box
 for your convenience:
 
 - PyYAML
-- javasphinx
 - recommonmark
 - sphinxcontrib-httpdomain
-- sphinxcontrib-inlinesyntaxhighlight
+- sphinxcontrib-imagesvg
 - sphinxcontrib-openapi
 - sphinxcontrib-plantuml
 - sphinxcontrib-redoc
+- sphinxcontrib-websupport
 - sphinxcontrib-youtube
-- guzzle_sphinx_theme
+- sphinxemoji
 - sphinx_bootstrap_theme
+- sphinx-markdown-tables
 - sphinx_rtd_theme
