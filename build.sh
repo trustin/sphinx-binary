@@ -75,4 +75,4 @@ fi
 echo "sha256sum: $(cat "$SPHINX_BIN.sha256") ($SPHINX_BIN.sha256)"
 
 # Build a test site with the binary to make sure it really works.
-"build/dist/sphinx.$OS_CLASSIFIER" test_site build/test_site
+"build/dist/sphinx.$OS_CLASSIFIER" -T test_site build/test_site
