@@ -9,7 +9,7 @@ fi
 pip install \
   'PyInstaller==3.5' \
   'PyYAML==5.1.1' \
-  'Sphinx==2.1.2'
+  'Sphinx==2.4.4'
 
 # Install the extensions.
 pip install \
