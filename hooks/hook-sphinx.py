@@ -1,5 +1,6 @@
 from PyInstaller.utils.hooks import collect_submodules, collect_data_files, copy_metadata, is_module_satisfies
 hiddenimports = (
+    collect_submodules('pkg_resources') +
     collect_submodules('sphinx.builders') +
     collect_submodules('sphinx.environment.collectors') +
     collect_submodules('sphinx.ext') +

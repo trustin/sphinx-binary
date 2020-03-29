@@ -1,7 +1,6 @@
-diff -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.py
---- dist.orig/sphinxcontrib/plantuml.py	2019-04-12 08:20:15.000000000 +0900
-+++ dist/sphinxcontrib/plantuml.py	2019-04-28 11:15:08.938191235 +0900
-@@ -210,7 +210,8 @@
+--- dist.orig/sphinxcontrib/plantuml.py	2020-01-01 10:30:59.000000000 +0900
++++ dist/sphinxcontrib/plantuml.py	2020-03-29 10:31:53.879307941 +0900
+@@ -212,7 +212,8 @@
                                                          fileformat),
                                   stdout=f, stdin=subprocess.PIPE,
                                   stderr=subprocess.PIPE,
@@ -11,7 +10,7 @@ diff -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.py
          except OSError as err:
              if err.errno != ENOENT:
                  raise
-@@ -234,7 +235,8 @@
+@@ -236,7 +237,8 @@
                               stdin=subprocess.PIPE,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE,
@@ -21,7 +20,7 @@ diff -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.py
      except OSError as err:
          if err.errno != ENOENT:
              raise
-@@ -393,13 +395,15 @@
+@@ -395,13 +397,15 @@
      try:
          try:
              p = subprocess.Popen(args, stdout=subprocess.PIPE,
@@ -39,7 +38,7 @@ diff -urN dist.orig/sphinxcontrib/plantuml.py dist/sphinxcontrib/plantuml.py
      except OSError as err:
          if err.errno != ENOENT:
              raise
-@@ -513,6 +517,17 @@
+@@ -515,6 +519,17 @@
  }
  
  

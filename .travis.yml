@@ -11,9 +11,11 @@ cache:
     - "$HOME/Library/Caches/Homebrew"
     - "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core"
 install:
-  - ./prepare.sh
+  - ./1-prepare-env.sh
 script:
-  - ./build.sh
+  - ./2-install-pkgs.sh
+  - ./3-apply-patches.sh
+  - ./4-build.sh
 notifications:
   email: false
 deploy:

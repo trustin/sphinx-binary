@@ -11,11 +11,13 @@ cache:
 init:
   - git config --global core.autocrlf true
 install:
-  - bash -e prepare.sh
+  - bash -e 1-prepare-env.sh
 build:
   verbosity: detailed
 build_script:
-  - bash -e build.sh
+  - bash -e 2-install-pkgs.sh
+  - bash -e 3-apply-patches.sh
+  - bash -e 4-build.sh
 test: off
 matrix:
   fast_finish: true
