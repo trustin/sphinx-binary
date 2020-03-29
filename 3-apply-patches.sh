@@ -9,6 +9,8 @@ fi
 PATCH_DIR="$PWD/patches"
 if [[ -d build/venv/Lib/site-packages ]]; then
   SITEPKG_DIR="build/venv/Lib/site-packages"
+elif [[ -d build/venv/lib/python3.7/site-packages ]]; then
+  SITEPKG_DIR="build/venv/lib/python3.7/site-packages"
 else
   SITEPKG_DIR="build/venv/lib/python3.6/site-packages"
 fi
