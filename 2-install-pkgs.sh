@@ -17,11 +17,11 @@ pip install \
   'sphinxcontrib-httpdomain==1.7.0' \
   'sphinxcontrib-imagesvg==0.1' \
   'sphinxcontrib-openapi==0.6.0' \
-  'sphinxcontrib-plantuml==0.18' 'Pillow==7.0.0' \
+  'sphinxcontrib-plantuml==0.18' 'Pillow==7.1.1' \
   'sphinxcontrib-redoc==1.5.1' \
   'sphinxcontrib-websupport==1.1.2' \
   'git+https://github.com/sphinx-contrib/youtube.git@f321c6720647c68e85777b714f80cefedb05e6df#egg=sphinxcontrib.youtube' \
-  'sphinxemoji==0.1.4' \
+  'sphinxemoji==0.1.5' \
   'sphinx-markdown-tables==0.0.12'
 
 # Install the themes.
