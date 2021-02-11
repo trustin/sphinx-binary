@@ -33,6 +33,25 @@ else
   exit 1
 fi
 
+# Install rsync on AppVeyor.
+if [[ -n "$APPVEYOR" ]]; then
+  # Update MSYS2 keyring.
+  curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
+  curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
+  pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
+  pacman -U --noconfirm msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
+  pacman-key --keyserver keyserver.ubuntu.com --refresh-keys
+
+  # Install zstd.
+  curl -O http://repo.msys2.org/msys/x86_64/zstd-1.4.7-1-x86_64.pkg.tar.xz
+  curl -O http://repo.msys2.org/msys/x86_64/zstd-1.4.7-1-x86_64.pkg.tar.xz.sig
+  pacman-key --verify zstd-1.4.7-1-x86_64.pkg.tar.xz.sig
+  pacman -U --noconfirm zstd-1.4.7-1-x86_64.pkg.tar.xz
+
+  # Install rsync.
+  pacman -Sy --needed --noconfirm rsync
+fi
+
 # Create and activate a virtualenv.
 VENV_HOME="$PWD/build/venv.orig"
 echo "Creating a new virtualenv with $PYTHON"
