@@ -11,10 +11,7 @@ fi
 rsync -aiP --delete "$ORIG_VENV_HOME/" "$NEW_VENV_HOME/"
 
 # Make sure we don't refer to the old venv.
-grep -rFl "venv.orig" "$NEW_VENV_HOME/bin" | while read F; do
-  perl -pi -e "s#venv.orig#venv.new#g" "$F"
-done
-if grep -rFl "venv.orig" "$NEW_VENV_HOME"; then
+if grep -rFl "venv.orig" "$NEW_VENV_HOME"/[Ll]ib; then
   echo "The new virtualenv contains a reference to the old one."
   exit 1
 fi
