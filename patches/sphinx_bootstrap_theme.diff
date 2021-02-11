@@ -5,11 +5,11 @@ diff -urN dist.orig/sphinx_bootstrap_theme/__init__.py dist/sphinx_bootstrap_the
  """Sphinx bootstrap theme."""
  import os
 +import sys
- 
- VERSION = (0, 7, 1)
- 
+
+ VERSION = (0, 8, 0)
+
 @@ -8,7 +9,10 @@
- 
+
  def get_html_theme_path():
      """Return list of HTML theme paths."""
 -    theme_path = os.path.abspath(os.path.dirname(__file__))
@@ -18,5 +18,5 @@ diff -urN dist.orig/sphinx_bootstrap_theme/__init__.py dist/sphinx_bootstrap_the
 +    else:
 +        theme_path = os.path.abspath(os.path.dirname(__file__))
      return [theme_path]
- 
+
  def setup(app):

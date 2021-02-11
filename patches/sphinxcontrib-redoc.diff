@@ -2,22 +2,22 @@ diff -urN dist.orig/sphinxcontrib/redoc.py dist/sphinxcontrib/redoc.py
 --- dist.orig/sphinxcontrib/redoc.py	2018-08-05 20:40:27.000000000 +0900
 +++ dist/sphinxcontrib/redoc.py	2018-08-12 17:18:46.438160442 +0900
 @@ -11,6 +11,7 @@
- 
+
  import io
  import os
 +import sys
  import json
- import yaml
- 
-@@ -21,7 +22,10 @@
+
+ import jinja2
+@@ -23,7 +24,10 @@
  from sphinx.util.osutil import copyfile, ensuredir
- 
- 
--here = os.path.abspath(os.path.dirname(__file__))
+
+
+-_HERE = os.path.abspath(os.path.dirname(__file__))
 +if getattr(sys, 'frozen', False):
-+    here = os.path.join(sys._MEIPASS, 'sphinxcontrib')
++    _HERE = os.path.join(sys._MEIPASS, 'sphinxcontrib')
 +else:
-+    here = os.path.abspath(os.path.dirname(__file__))
- 
- with io.open(os.path.join(here, 'redoc.j2'), 'r', encoding='utf-8') as f:
-     template = jinja2.Template(f.read())
++    _HERE = os.path.abspath(os.path.dirname(__file__))
+ _REDOC_CONF_SCHEMA = {
+     'type': 'array',
+     'items': {

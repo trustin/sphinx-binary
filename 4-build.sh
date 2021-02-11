@@ -1,6 +1,7 @@
 #!/bin/bash -e
-export PATH="$PWD/build/venv/bin:$PWD/build/venv/Scripts:$PATH"
-if [[ ! -d "$PWD/build/venv" ]]; then
+VENV_HOME="$PWD/build/venv.new"
+export PATH="$VENV_HOME/bin:$VENV_HOME/Scripts:$PATH"
+if [[ ! -d "$VENV_HOME" ]]; then
   echo "virtualenv not ready"
   exit 1
 fi

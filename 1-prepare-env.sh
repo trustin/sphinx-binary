@@ -34,9 +34,10 @@ else
 fi
 
 # Create and activate a virtualenv.
+VENV_HOME="$PWD/build/venv.orig"
 echo "Creating a new virtualenv with $PYTHON"
-"$PYTHON" -m venv build/venv
-export PATH="$PWD/build/venv/bin:$PWD/build/venv/Scripts:$PATH"
+"$PYTHON" -m venv "$VENV_HOME"
+export PATH="$VENV_HOME/bin:$VENV_HOME/Scripts:$PATH"
 
 # Upgrade pip and setuptools.
 if [[ -n "$APPVEYOR" ]]; then
@@ -53,8 +54,8 @@ echo "$(which python) --version: $PYVER"
 echo "$(which pip) --version: $PIPVER"
 echo "os.classifier: $(./os_classifier.sh)"
 if [[ ! "$PYVER" =~ (^Python 3\.[67]\.) ]] || \
-   [[ ! "$(which python)" =~ (^.*/build/venv/.*$) ]] || \
-   [[ ! "$PIPVER" =~ (^.*pip [1-9][0-9]+\..*[\\/]build[\\/]venv[\\/].*3\.[67][^0-9].*$) ]]; then
+   [[ ! "$(which python)" =~ (^.*/build/venv\.orig/.*$) ]] || \
+   [[ ! "$PIPVER" =~ (^.*pip [1-9][0-9]+\..*[\\/]build[\\/]venv\.orig[\\/].*3\.[67][^0-9].*$) ]]; then
   echo 'Must run on Python 3.6 or 3.7 virtualenv with pip 10+'
   exit 1
 fi

@@ -1,7 +1,7 @@
 diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
 --- dist.orig/sphinx/cmd/make_mode.py	2020-03-29 10:12:50.011647462 +0900
 +++ dist/sphinx/cmd/make_mode.py	2020-03-29 10:23:41.121770929 +0900
-@@ -103,7 +103,7 @@
+@@ -102,7 +102,7 @@
              makecmd = self.makecmd
          try:
              with cd(self.builddir_join('latex')):
@@ -10,7 +10,7 @@ diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
          except OSError:
              print('Error: Failed to run: %s' % makecmd)
              return 1
-@@ -118,7 +118,7 @@
+@@ -117,7 +117,7 @@
              makecmd = self.makecmd
          try:
              with cd(self.builddir_join('latex')):
@@ -19,7 +19,7 @@ diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
          except OSError:
              print('Error: Failed to run: %s' % makecmd)
              return 1
-@@ -128,7 +128,7 @@
+@@ -127,7 +127,7 @@
              return 1
          try:
              with cd(self.builddir_join('texinfo')):
@@ -28,7 +28,7 @@ diff -urN dist.orig/sphinx/cmd/make_mode.py dist/sphinx/cmd/make_mode.py
          except OSError:
              print('Error: Failed to run: %s' % self.makecmd)
              return 1
-@@ -165,3 +165,14 @@
+@@ -164,3 +164,14 @@
      if hasattr(make, run_method):
          return getattr(make, run_method)()
      return make.run_generic_build(args[0])
@@ -54,7 +54,7 @@ diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
  import posixpath
  import re
  import subprocess
-@@ -243,7 +244,7 @@
+@@ -245,7 +246,7 @@
  
      try:
          ret = subprocess.run(dot_args, input=code.encode(), stdout=PIPE, stderr=PIPE,
@@ -63,7 +63,7 @@ diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
          if not path.isfile(outfn):
              raise GraphvizError(__('dot did not produce an output file:\n[stderr]\n%r\n'
                                     '[stdout]\n%r') % (ret.stderr, ret.stdout))
-@@ -392,6 +393,17 @@
+@@ -394,6 +395,17 @@
          copy_asset(src, dst)
  
  
@@ -87,11 +87,11 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
 @@ -8,6 +8,7 @@
      :license: BSD, see LICENSE for details.
  """
- 
+
 +import os
  import subprocess
- from subprocess import CalledProcessError, PIPE
- from typing import Any, Dict
+ import sys
+ from subprocess import PIPE, CalledProcessError
 @@ -35,7 +36,7 @@
          try:
              args = [self.config.image_converter, '-version']
@@ -100,7 +100,7 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
 +            subprocess.run(args, stdout=PIPE, stderr=PIPE, env=_new_env(), check=True)
              return True
          except OSError:
-             logger.warning(__('convert command %r cannot be run.'
+             logger.warning(__('convert command %r cannot be run, '
 @@ -59,7 +60,7 @@
                      self.config.image_converter_args +
                      [_from, _to])
@@ -109,11 +109,11 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
 +            subprocess.run(args, stdout=PIPE, stderr=PIPE, env=_new_env(), check=True)
              return True
          except OSError:
-             logger.warning(__('convert command %r cannot be run.'
+             logger.warning(__('convert command %r cannot be run, '
 @@ -72,6 +73,17 @@
-                                  (exc.stderr, exc.stdout))
- 
- 
+                                  (exc.stderr, exc.stdout)) from exc
+
+
 +def _new_env():
 +    env = dict(os.environ)  # make a copy of the environment
 +    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.
@@ -127,40 +127,40 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
 +
  def setup(app: Sphinx) -> Dict[str, Any]:
      app.add_post_transform(ImagemagickConverter)
-     app.add_config_value('image_converter', 'convert', 'env')
+     if sys.platform == 'win32':
 diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
 --- dist.orig/sphinx/ext/imgmath.py	2020-03-29 10:12:50.021647691 +0900
 +++ dist/sphinx/ext/imgmath.py	2020-03-29 10:28:09.475882256 +0900
 @@ -9,6 +9,7 @@
  """
- 
+
  import posixpath
 +import os
  import re
  import shutil
  import subprocess
-@@ -164,7 +165,7 @@
+@@ -163,7 +164,7 @@
      command.append('math.tex')
- 
+
      try:
 -        subprocess.run(command, stdout=PIPE, stderr=PIPE, cwd=tempdir, check=True)
 +        subprocess.run(command, stdout=PIPE, stderr=PIPE, cwd=tempdir, env=_new_env(), check=True)
          return path.join(tempdir, 'math.dvi')
-     except OSError:
+     except OSError as exc:
          logger.warning(__('LaTeX command %r cannot be run (needed for math '
-@@ -178,7 +179,7 @@
+@@ -177,7 +178,7 @@
  def convert_dvi_to_image(command: List[str], name: str) -> Tuple[bytes, bytes]:
      """Convert DVI file to specific image format."""
      try:
 -        ret = subprocess.run(command, stdout=PIPE, stderr=PIPE, check=True)
 +        ret = subprocess.run(command, stdout=PIPE, stderr=PIPE, env=_new_env(), check=True)
          return ret.stdout, ret.stderr
-     except OSError:
+     except OSError as exc:
          logger.warning(__('%s command %r cannot be run (needed for math '
-@@ -380,6 +381,17 @@
+@@ -379,6 +380,17 @@
                   RemovedInSphinx40Warning)
- 
- 
+
+
 +def _new_env():
 +    env = dict(os.environ)  # make a copy of the environment
 +    lp_key = 'LD_LIBRARY_PATH'  # for Linux and *BSD.

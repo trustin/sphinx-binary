@@ -30,23 +30,19 @@ master_doc = 'index'
 pygments_style = 'tango'
 add_function_parentheses = True
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel', 'sphinx.ext.autosummary',
-              'sphinx.ext.coverage', 'sphinx.ext.doctest', 'sphinx.ext.extlinks',
-              'sphinx.ext.githubpages', 'sphinx.ext.graphviz', 'sphinx.ext.ifconfig',
-              'sphinx.ext.imgconverter', 'sphinx.ext.inheritance_diagram', 'sphinx.ext.intersphinx',
-              'sphinx.ext.linkcode', 'sphinx.ext.imgmath', 'sphinx.ext.napoleon', 'sphinx.ext.todo',
-              'sphinx.ext.viewcode', 'sphinx_markdown_tables',
-              'sphinxcontrib.httpdomain', 'sphinxcontrib.imagesvg', 'sphinxcontrib.openapi',
-              'sphinxcontrib.plantuml', 'sphinxcontrib.redoc', 'sphinxcontrib.youtube',
-              'sphinxemoji.sphinxemoji']
+extensions = ['recommonmark', 'sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
+              'sphinx.ext.autosummary', 'sphinx.ext.coverage', 'sphinx.ext.doctest',
+              'sphinx.ext.extlinks', 'sphinx.ext.githubpages', 'sphinx.ext.graphviz',
+              'sphinx.ext.ifconfig', 'sphinx.ext.imgconverter', 'sphinx.ext.inheritance_diagram',
+              'sphinx.ext.intersphinx', 'sphinx.ext.linkcode', 'sphinx.ext.imgmath',
+              'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode',
+              'sphinx_markdown_tables', 'sphinxcontrib.httpdomain', 'sphinxcontrib.imagesvg',
+              'sphinxcontrib.openapi', 'sphinxcontrib.plantuml', 'sphinxcontrib.redoc',
+              'sphinxcontrib.youtube', 'sphinxemoji.sphinxemoji']
 
 templates_path = ['_templates']
 exclude_trees = ['.build']
-source_suffix = ['.rst', '.md']
 source_encoding = 'utf-8-sig'
-source_parsers = {
-  '.md': 'recommonmark.parser.CommonMarkParser'
-}
 
 # HTML options
 #html_theme_path = 'alabaster'
@@ -66,7 +62,7 @@ html_show_sourcelink = False
 html_static_path = ['_static']
 
 # PlantUML options
-plantuml = "java -jar plantuml-1.2019.7.jar"
+plantuml = "java -jar plantuml-1.2021.1.jar"
 
 # ReDoc options
 redoc = [{ 'name': 'Batcomputer API',
