@@ -15,6 +15,7 @@ pip install \
 # Install the extensions.
 pip install \
   'recommonmark==0.7.1' \
+  'myst-parser==0.16.1' \
   'sphinxcontrib-httpdomain==1.7.0' \
   'sphinxcontrib-imagesvg==0.1' \
   'sphinxcontrib-openapi==0.7.0' \
