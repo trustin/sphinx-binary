@@ -2,6 +2,7 @@ from PyInstaller.utils.hooks import collect_submodules, collect_data_files, copy
 hiddenimports = (
     collect_submodules('pkg_resources') +
     collect_submodules('sphinx.builders') +
+    collect_submodules('sphinx.directives') +
     collect_submodules('sphinx.environment.collectors') +
     collect_submodules('sphinx.ext') +
     collect_submodules('sphinx.parsers') +
@@ -15,6 +16,7 @@ hiddenimports = (
     collect_submodules('babel') +
     collect_submodules('yaml') +
     collect_submodules('javasphinx') +
+    collect_submodules('myst_parser') +
     collect_submodules('recommonmark') +
     collect_submodules('sphinx_markdown_tables') +
     collect_submodules('sphinxcontrib') +

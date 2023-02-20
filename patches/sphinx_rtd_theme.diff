@@ -1,16 +1,16 @@
 diff -urN dist.orig/sphinx_rtd_theme/__init__.py dist/sphinx_rtd_theme/__init__.py
---- dist.orig/sphinx_rtd_theme/__init__.py	2019-02-13 04:37:55.000000000 +0900
-+++ dist/sphinx_rtd_theme/__init__.py	2019-04-28 11:02:47.203040056 +0900
-@@ -5,6 +5,7 @@
- """
-
+--- dist.orig/sphinx_rtd_theme/__init__.py	2023-02-20 21:42:42.078480089 +0900
++++ dist/sphinx_rtd_theme/__init__.py	2023-02-20 21:46:46.426078882 +0900
+@@ -6,6 +6,7 @@
+ 
  from os import path
+ from sys import version_info as python_version
 +import sys
-
- from sphinx import version_info
+ 
+ from sphinx import version_info as sphinx_version
  from sphinx.locale import _
-@@ -24,7 +25,10 @@
-
+@@ -20,7 +21,10 @@
+ 
  def get_html_theme_path():
      """Return list of HTML theme paths."""
 -    cur_dir = path.abspath(path.dirname(path.dirname(__file__)))

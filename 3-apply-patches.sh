@@ -21,10 +21,8 @@ export PATH="$NEW_VENV_HOME/bin:$NEW_VENV_HOME/Scripts:$PATH"
 PATCH_DIR="$PWD/patches"
 if [[ -d "$NEW_VENV_HOME/Lib/site-packages" ]]; then
   SITEPKG_DIR="$NEW_VENV_HOME/Lib/site-packages"
-elif [[ -d "$NEW_VENV_HOME/lib/python3.7/site-packages" ]]; then
-  SITEPKG_DIR="$NEW_VENV_HOME/lib/python3.7/site-packages"
-else
-  SITEPKG_DIR="$NEW_VENV_HOME/lib/python3.6/site-packages"
+elif [[ -d "$NEW_VENV_HOME/lib/python3.10/site-packages" ]]; then
+  SITEPKG_DIR="$NEW_VENV_HOME/lib/python3.10/site-packages"
 fi
 pushd "$SITEPKG_DIR"
 if [[ ! -a sphinxcontrib/__init__.py ]]; then

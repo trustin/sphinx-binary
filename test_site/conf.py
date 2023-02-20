@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
+import shutil
 import yaml
 
 import alabaster
@@ -30,7 +31,7 @@ master_doc = 'index'
 pygments_style = 'tango'
 add_function_parentheses = True
 
-extensions = ['recommonmark', 'sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
+extensions = ['myst_parser', 'sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
               'sphinx.ext.autosummary', 'sphinx.ext.coverage', 'sphinx.ext.doctest',
               'sphinx.ext.extlinks', 'sphinx.ext.githubpages', 'sphinx.ext.graphviz',
               'sphinx.ext.ifconfig', 'sphinx.ext.imgconverter', 'sphinx.ext.inheritance_diagram',
@@ -62,7 +63,8 @@ html_show_sourcelink = False
 html_static_path = ['_static']
 
 # PlantUML options
-plantuml = "java -jar plantuml-1.2021.1.jar"
+os.environ['GRAPHVIZ_DOT'] = shutil.which('dot')
+plantuml = 'java -jar plantuml-1.2023.1.jar'
 
 # ReDoc options
 redoc = [{ 'name': 'Batcomputer API',

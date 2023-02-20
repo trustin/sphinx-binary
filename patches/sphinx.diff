@@ -57,7 +57,7 @@ diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
 @@ -245,7 +246,7 @@
  
      try:
-         ret = subprocess.run(dot_args, input=code.encode(), stdout=PIPE, stderr=PIPE,
+         ret = subprocess.run(dot_args, input=code.encode(), capture_output=True,
 -                             cwd=cwd, check=True)
 +                             cwd=cwd, env=_new_env(), check=True)
          if not path.isfile(outfn):
@@ -78,7 +78,7 @@ diff -urN dist.orig/sphinx/ext/graphviz.py dist/sphinx/ext/graphviz.py
 +    return env
 +
 +
- def setup(app: Sphinx) -> Dict[str, Any]:
+ def setup(app: Sphinx) -> dict[str, Any]:
      app.add_node(graphviz,
                   html=(html_visit_graphviz, None),
 diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
@@ -96,8 +96,8 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
          try:
              args = [self.config.image_converter, '-version']
              logger.debug('Invoking %r ...', args)
--            subprocess.run(args, stdout=PIPE, stderr=PIPE, check=True)
-+            subprocess.run(args, stdout=PIPE, stderr=PIPE, env=_new_env(), check=True)
+-            subprocess.run(args, capture_output=True, check=True)
++            subprocess.run(args, capture_output=True, env=_new_env(), check=True)
              return True
          except OSError:
              logger.warning(__('convert command %r cannot be run, '
@@ -105,8 +105,8 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
                      self.config.image_converter_args +
                      [_from, _to])
              logger.debug('Invoking %r ...', args)
--            subprocess.run(args, stdout=PIPE, stderr=PIPE, check=True)
-+            subprocess.run(args, stdout=PIPE, stderr=PIPE, env=_new_env(), check=True)
+-            subprocess.run(args, capture_output=True, check=True)
++            subprocess.run(args, capture_output=True, env=_new_env(), check=True)
              return True
          except OSError:
              logger.warning(__('convert command %r cannot be run, '
@@ -125,26 +125,26 @@ diff -urN dist.orig/sphinx/ext/imgconverter.py dist/sphinx/ext/imgconverter.py
 +    return env
 +
 +
- def setup(app: Sphinx) -> Dict[str, Any]:
+ def setup(app: Sphinx) -> dict[str, Any]:
      app.add_post_transform(ImagemagickConverter)
      if sys.platform == 'win32':
 diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
 --- dist.orig/sphinx/ext/imgmath.py	2020-03-29 10:12:50.021647691 +0900
 +++ dist/sphinx/ext/imgmath.py	2020-03-29 10:28:09.475882256 +0900
 @@ -9,6 +9,7 @@
- """
+ from __future__ import annotations
 
- import posixpath
+ import base64
 +import os
  import re
  import shutil
  import subprocess
 @@ -163,7 +164,7 @@
-     command.append('math.tex')
 
      try:
--        subprocess.run(command, stdout=PIPE, stderr=PIPE, cwd=tempdir, check=True)
-+        subprocess.run(command, stdout=PIPE, stderr=PIPE, cwd=tempdir, env=_new_env(), check=True)
+         subprocess.run(command, capture_output=True, cwd=tempdir, check=True,
+-                       encoding='ascii')
++                       encoding='ascii', env=_new_env())
          return path.join(tempdir, 'math.dvi')
      except OSError as exc:
          logger.warning(__('LaTeX command %r cannot be run (needed for math '
@@ -152,8 +152,8 @@ diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
  def convert_dvi_to_image(command: List[str], name: str) -> Tuple[bytes, bytes]:
      """Convert DVI file to specific image format."""
      try:
--        ret = subprocess.run(command, stdout=PIPE, stderr=PIPE, check=True)
-+        ret = subprocess.run(command, stdout=PIPE, stderr=PIPE, env=_new_env(), check=True)
+-        ret = subprocess.run(command, capture_output=True, check=True, encoding='ascii')
++        ret = subprocess.run(command, capture_output=True, check=True, encoding='ascii', env=_new_env())
          return ret.stdout, ret.stderr
      except OSError as exc:
          logger.warning(__('%s command %r cannot be run (needed for math '
@@ -172,6 +172,6 @@ diff -urN dist.orig/sphinx/ext/imgmath.py dist/sphinx/ext/imgmath.py
 +    return env
 +
 +
- def setup(app: Sphinx) -> Dict[str, Any]:
+ def setup(app: Sphinx) -> dict[str, Any]:
      app.add_html_math_renderer('imgmath',
                                 (html_visit_math, None),
